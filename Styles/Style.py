@@ -1,112 +1,174 @@
+from typing import TYPE_CHECKING
 from Styles.Tema import Tema
 import tkinter as tk
 
-class Style():
-    
-    class Dark():
+if TYPE_CHECKING:
 
-        def Button():
+    from Componentes.ComponentesPersonalizados import FrameList, FrameListItems
 
-            return
+class TemaConfig():
 
-        def Frame():
-
-            return
-
-    class White():
-
-        def Button():
-
-            return
-
-        def Frame():
-
-            return
+    idTema = 0
+ 
+    tema = Tema.Dark
 
     @staticmethod
-    def DarkButton(button=tk.Button):
+    def SetTema(i):
+
+        TemaConfig.idTema = i
+
+        if i== 0:
+
+            TemaConfig.tema = Tema.Dark
+        
+        elif i == 1: 
+
+            TemaConfig.tema = Tema.White
+
+class Style():
+
+    _componentes = []
+
+    @staticmethod
+    def ButtonFlat(button: tk.Button):
 
         button.config(
             
-            bg=Tema.botao,
-            fg=Tema.texto,
-            activebackground=Tema.hover,
-            activeforeground=Tema.destaque,
+            bg=TemaConfig.tema.botao,
+            fg=TemaConfig.tema.texto,
+            activebackground=TemaConfig.tema.hover,
+            activeforeground=TemaConfig.tema.destaque,
             relief="flat",
             bd=0,
-            font=("Segoe UI",12)
+            font=("Segoe UI",12),
+
+        )
+    
+        if any(item["comp"] == button for item in Style._componentes): return
+
+        Style._componentes.append({"comp": button, "metodo": Style.ButtonFlat })
+    
+    @staticmethod
+    def ButtonHide(button: tk.Button):
+
+        if not button.master: return
+        
+        button.config(
+            
+            bg= button.master["bg"],
+            fg=TemaConfig.tema.texto,
+            activebackground=TemaConfig.tema.hover,
+            activeforeground=TemaConfig.tema.destaque,
+            relief="flat",
+            bd=0,
+            font=("Segoe UI",12),
+
         )
 
+        if any(item["comp"] == button for item in Style._componentes): return
+
+        Style._componentes.append({"comp": button, "metodo": Style.ButtonHide })
+
     @staticmethod
-    def DarkFrame(frame=tk.Frame):
+    def FrameBord(frame: tk.Frame):
 
         frame.config(
             
-            bg=Tema.segundario,
+            bg=TemaConfig.tema.segundario,
             highlightthickness=1,
-            highlightbackground=Tema.primario,
-            highlightcolor=Tema.destaque
+            highlightbackground=TemaConfig.tema.primario,
+            highlightcolor=TemaConfig.tema.destaque
         )
+        
+        if any(item["comp"] == frame for item in Style._componentes): return
+
+        Style._componentes.append({"comp": frame, "metodo": Style.FrameBord })
+
+    @staticmethod
+    def Frame(comp: tk.Frame):
+
+        comp.config(
+            
+            bg=TemaConfig.tema.segundario,
+       
+        )
+        
+        if any(item["comp"] == comp for item in Style._componentes): return
+
+        Style._componentes.append({"comp": comp, "metodo": Style.Frame })
     
     @staticmethod
-    def DarkBoxEntry(ent=tk.Entry):
+    def EntryBord(ent: tk.Entry):
 
         ent.config(
             
-            bg=Tema.segundario,
-            fg=Tema.texto,
+            bg=TemaConfig.tema.segundario,
+            fg=TemaConfig.tema.texto,
             relief="flat",
             highlightthickness=1,
-            highlightbackground=Tema.primario,
-            highlightcolor=Tema.destaque
+            highlightbackground=TemaConfig.tema.primario,
+            highlightcolor=TemaConfig.tema.destaque
+
         )
 
-    MenuTButton = {
-            
-        "bg":"#3A3D42",
-        "fg":"#FFFFFF",
-        "activebackground":"#4C5057", 
-        "activeforeground":"#0E639C", 
-        "relief":"flat",
-        "bd":0,
-        "font":("Segoe UI",11)
-    }
+        if any(item["comp"] == ent for item in Style._componentes): return
 
-    ListTFrame = {
-            
-        "bg":"#202123"
-    }
+        Style._componentes.append({"comp": ent, "metodo": Style.EntryBord })
 
-    ListTFramePack = {
-            
-        "side":"left",
-        "fill":"y",
-    }
+    def LabeHide(lb: tk.Label):
 
-    ListTLabel = {
+        if not lb.master: return
+
+        lb.config(
+
+            bg=lb.master["bg"], 
+            fg=TemaConfig.tema.texto
+            
+        )
         
-        "bg":"#202123",
-        "fg":"#FFFFFF",
-        "highlightthickness":1,
-        "highlightbackground":"#2D2F33",
-    }
+        if any(item["comp"] == lb for item in Style._componentes): return
 
-    ListTLabelPack = {
-        
-        "side":"top",
-        "fill":"x",
-    }
+        Style._componentes.append({"comp": lb, "metodo": Style.LabeHide })
 
-    ListTListBox = {
+    def FrameListZebrado(comp: "FrameList"):
+
+        comp.config(bg=TemaConfig.tema.primario)
+        comp.frm_Conteudo.config(bg=TemaConfig.tema.primario)
+        comp.frm_Coluna.config(bg=TemaConfig.tema.segundario)
+
+        for colum in comp.listColunas:
+
+            colum.config(
+
+                bg=TemaConfig.tema.primario, 
+                fg=TemaConfig.tema.texto,
+
+            )
+
+        for i,item in enumerate(comp.listLinhas):
+
+            cor = TemaConfig.tema.primario if i % 2 else TemaConfig.tema.segundario
+
+            item.config(bg=cor)
+
+            for cell in item.list_cells:
+
+                cell.config(bg=cor, fg=TemaConfig.tema.texto)
+
+        if any(item["comp"] == comp for item in Style._componentes): return
+
+        Style._componentes.append({"comp": comp, "metodo": Style.FrameListZebrado })
+
+    @staticmethod
+    def AtualizarTema(i):
+       
+        TemaConfig.SetTema(i)
+
+        Style._componentes = [c for c in Style._componentes if c["comp"].winfo_exists()]
+
+        for item in Style._componentes:
+
+            c = item["comp"]
+            m = item["metodo"]
             
-        "bg":"#202123",
-        "fg":"#FFFFFF",
-        "relief":"flat",
-        "highlightbackground":"#2D2F33",
-    }
-
-    ListTListBoxPack = {
-        
-        "fill":"y",
-        "expand":True,
-    }
+            m(c)
