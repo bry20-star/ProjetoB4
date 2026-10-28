@@ -30,59 +30,73 @@ class Style():
     _componentes = []
 
     @staticmethod
-    def ButtonFlat(button: tk.Button):
+    def ButtonFlat(comp: tk.Button):
 
-        button.config(
+        comp.config(
             
             bg=TemaConfig.tema.botao,
             fg=TemaConfig.tema.texto,
-            activebackground=TemaConfig.tema.hover,
+            activebackground=TemaConfig.tema.clicado,
+            highlightthickness=0,
             activeforeground=TemaConfig.tema.destaque,
             relief="flat",
             bd=0,
             font=("Segoe UI",12),
 
         )
-    
-        if any(item["comp"] == button for item in Style._componentes): return
 
-        Style._componentes.append({"comp": button, "metodo": Style.ButtonFlat })
+        comp.bind("<Enter>", lambda event: comp.config(bg=TemaConfig.tema.hover, highlightthickness=2))
+        comp.bind("<FocusIn>", lambda event: comp.config(bg=TemaConfig.tema.hover, highlightthickness=2))
+        comp.bind("<Leave>", lambda event: comp.config(bg=TemaConfig.tema.botao, highlightthickness=0))
+        comp.bind("<FocusOut>", lambda event: comp.config(bg=TemaConfig.tema.botao, highlightthickness=0))
     
+        if any(item["comp"] == comp for item in Style._componentes): return
+
+        Style._componentes.append({"comp": comp, "metodo": Style.ButtonFlat })
+
     @staticmethod
-    def ButtonHide(button: tk.Button):
+    def ButtonHide(comp: tk.Button):
 
-        if not button.master: return
+        if not comp.master: return
         
-        button.config(
+        comp.config(
             
-            bg= button.master["bg"],
+            bg=comp.master["bg"],
             fg=TemaConfig.tema.texto,
-            activebackground=TemaConfig.tema.hover,
+            activebackground=comp.master["bg"],
             activeforeground=TemaConfig.tema.destaque,
+            highlightthickness=0,
             relief="flat",
+            padx=0,
+            pady=0,
             bd=0,
             font=("Segoe UI",12),
 
         )
 
-        if any(item["comp"] == button for item in Style._componentes): return
+        comp.bind("<Enter>", lambda event: comp.config(bg=comp.master["bg"], fg=TemaConfig.tema.hover, font=("Segoe UI",13)))
+        comp.bind("<FocusIn>", lambda event: comp.config(bg=comp.master["bg"], fg=TemaConfig.tema.hover))
+        comp.bind("<Leave>", lambda event: comp.config(bg=comp.master["bg"], fg=TemaConfig.tema.texto, font=("Segoe UI",12)))
+        comp.bind("<FocusOut>", lambda event: comp.config(bg=comp.master["bg"], fg=TemaConfig.tema.texto))
 
-        Style._componentes.append({"comp": button, "metodo": Style.ButtonHide })
+        if any(item["comp"] == comp for item in Style._componentes): return
+
+        Style._componentes.append({"comp": comp, "metodo": Style.ButtonHide })
 
     @staticmethod
-    def FrameBord(frame: tk.Frame):
+    def FrameBord(comp: tk.Frame):
 
-        frame.config(
+        comp.config(
             
             bg=TemaConfig.tema.segundario,
             highlightthickness=1,
             highlightbackground=TemaConfig.tema.primario,
-            highlightcolor=TemaConfig.tema.destaque
+            highlightcolor=TemaConfig.tema.primario
         )
         
-        if any(item["comp"] == frame for item in Style._componentes): return
+        if any(item["comp"] == comp for item in Style._componentes): return
 
-        Style._componentes.append({"comp": frame, "metodo": Style.FrameBord })
+        Style._componentes.append({"comp": comp, "metodo": Style.FrameBord })
 
     @staticmethod
     def Frame(comp: tk.Frame):
@@ -98,12 +112,12 @@ class Style():
         Style._componentes.append({"comp": comp, "metodo": Style.Frame })
     
     @staticmethod
-    def EntryBord(ent: tk.Entry):
+    def EntryBord(comp: tk.Entry):
 
-        ent.config(
+        comp.config(
             
-            bg=TemaConfig.tema.segundario,
-            fg=TemaConfig.tema.texto,
+            bg=TemaConfig.tema.primario,
+            fg=TemaConfig.tema.hover,
             relief="flat",
             highlightthickness=1,
             highlightbackground=TemaConfig.tema.primario,
@@ -111,9 +125,42 @@ class Style():
 
         )
 
-        if any(item["comp"] == ent for item in Style._componentes): return
+        comp.insert(0, "Buscar:")
 
-        Style._componentes.append({"comp": ent, "metodo": Style.EntryBord })
+        comp.bind("<Enter>", lambda event: Style.__EntryEnter("mouse",event))
+        comp.bind("<FocusIn>", lambda event: Style.__EntryEnter("tab",event))
+        comp.bind("<Leave>", lambda event: Style.__EntryLeave("mouse",event))
+        comp.bind("<FocusOut>", lambda event: Style.__EntryLeave("tab",event))
+
+        if any(item["comp"] == comp for item in Style._componentes): return
+
+        Style._componentes.append({"comp": comp, "metodo": Style.EntryBord })
+
+    def __EntryEnter(entrada: str,event):
+
+        comp:tk.Entry = event.widget
+
+        if comp.get() == "Buscar:":
+
+            comp.delete(0,tk.END)
+
+        comp.config(bg=TemaConfig.tema.hover, fg=TemaConfig.tema.texto)
+
+    def __EntryLeave(entrada: str,event):
+
+        comp: tk.Entry = event.widget
+
+        if entrada == "tab":
+
+            comp.delete(0,tk.END)
+
+        if comp.winfo_toplevel().focus_get() == comp: return
+
+        if comp.get() == "":
+
+            comp.insert(0, "Buscar:")
+
+        comp.config(bg=TemaConfig.tema.primario, fg=TemaConfig.tema.hover)
 
     def LabeHide(lb: tk.Label):
 
@@ -158,7 +205,7 @@ class Style():
         if any(item["comp"] == comp for item in Style._componentes): return
 
         Style._componentes.append({"comp": comp, "metodo": Style.FrameListZebrado })
-
+        
     @staticmethod
     def AtualizarTema(i):
        

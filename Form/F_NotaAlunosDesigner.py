@@ -1,20 +1,25 @@
 # arquivo de desiner
 
 import tkinter as tk
+from typing import TYPE_CHECKING
 from Componentes.ComponentesPersonalizados import FrameList
 from Form.F_NovaTurma import F_NovaTurma
 from Styles.Style import Style
 from Styles.Style import TemaConfig
 
+if TYPE_CHECKING:
+
+    from F_NotaAlunos import F_principal
+
 class Form():
 
     # metodo que criar e configura os componentes
-    def InicializarComponentes(self):
+    def InicializarComponentes(self: "F_principal"):
         
-        self.F_principal = tk.Tk()
-        self.pw_Panel = tk.PanedWindow(self.F_principal)
+        self.fp = tk.Tk()
+        self.pw_Panel = tk.PanedWindow(self.fp)
         self.frm_BarraLateral = tk.Frame(self.pw_Panel)
-        self.frm_BarraSuperio = tk.Frame(self.F_principal)
+        self.frm_BarraSuperio = tk.Frame(self.fp)
         self.frm_Botoes = tk.Frame(self.frm_BarraLateral)
         self.frm_Conteudo = tk.Frame(self.pw_Panel)
         self.frm_Home = tk.Frame(self.frm_Conteudo)
@@ -37,7 +42,7 @@ class Form():
         self.lb_HomeTitulo = tk.Label(self.frm_Home)
         self.lb_BSTitulo = tk.Label(self.frm_BarraSuperio)
         self.ListView = FrameList(self.frm_Turmas)
-
+     
         #
         # Componentes Multiplos - FrameConteudos
         #
@@ -87,91 +92,119 @@ class Form():
         self.frm_BarraLateral.pack(side="left", fill="y")
         self.frm_BarraLateral.pack_propagate(False)
         Style.FrameBord(self.frm_BarraLateral)
+
         #
         # frm_barraSuperio
         #
+
         self.frm_BarraSuperio.config(height=60)
         self.frm_BarraSuperio.pack_propagate(False)
         self.frm_BarraSuperio.pack(side="top", fill="x")
         Style.FrameBord(self.frm_BarraSuperio)
+
         #
         # pw_Panel
         #
+
         self.pw_Panel.config(orient="horizontal")
         self.pw_Panel.config(showhandle=True, sashrelief="flat", sashpad=-2)
         self.pw_Panel.config(bg=TemaConfig.tema.destaque, bd=0)
         self.pw_Panel.pack(fill="both", expand=True)
         self.pw_Panel.add(self.frm_BarraLateral)
         self.pw_Panel.add(self.frm_Conteudo)
+
         #
         # lb_Menu
         #
-        Style.LabeHide(self.lb_Menu)
+
         self.lb_Menu.config(text="Menu", font=("arial", 15, "bold"))
         self.lb_Menu.pack(fill="x", padx=(1,1), pady=(1,10))
+        Style.LabeHide(self.lb_Menu)
+
         #
         # lb_HomeTitulo
         #
-        Style.LabeHide(self.lb_HomeTitulo)
+
         self.lb_HomeTitulo.config(text="Home", font=TemaConfig.tema.fonteTitulo)  
         self.lb_HomeTitulo.pack(anchor="nw", pady=20, padx= 20)
+        Style.LabeHide(self.lb_HomeTitulo)
+
         #
         # lb_BSTitulo
         #
-        Style.LabeHide(self.lb_BSTitulo)
-        self.lb_BSTitulo.config(text="Sistema de Notas", font=TemaConfig.tema.fonteTitulo)
+
+        self.lb_BSTitulo.config(text="Sistema de Hotel", font=TemaConfig.tema.fonteTitulo)
         self.lb_BSTitulo.pack(side="left", padx=10)
+        Style.LabeHide(self.lb_BSTitulo)
+
         #
         # lb_TurmasTitulo
         #
-        Style.LabeHide(self.lb_TurmasTitulo)
+
         self.lb_TurmasTitulo.config(text="Turmas", font=TemaConfig.tema.fonte)
         self.lb_TurmasTitulo.pack(side="left", padx=10)
+        Style.LabeHide(self.lb_TurmasTitulo)
+
         #
         # lb_TurmasPesqiusa
         #
-        Style.LabeHide(self.lb_TurmaPesquisa)
+
         self.lb_TurmaPesquisa.config(text="Pesquisa", font=TemaConfig.tema.fonte)
         self.lb_TurmaPesquisa.pack(side="left", padx=10)
+        Style.LabeHide(self.lb_TurmaPesquisa)
+
         # 
         # ent_BuscarTurma
         #
-        Style.EntryBord(self.ent_BuscarTurma)
+
         self.ent_BuscarTurma.pack(side="left", padx=10)
+        Style.EntryBord(self.ent_BuscarTurma)
+
         #
         # btn_NovaTurma
         #
-        Style.ButtonHide(self.btn_NovaTurma)
+
         self.btn_NovaTurma.config(text="Nova Turma")
         self.btn_NovaTurma.config(command=lambda: self.FormAbrir_Click(F_NovaTurma))
-        self.btn_NovaTurma.pack(side="right", padx=10)
+        self.btn_NovaTurma.pack(side="right", padx=10) 
+        Style.ButtonHide(self.btn_NovaTurma)
+
         #
         # btn_BuscarTurma
         #
-        Style.ButtonHide(self.btn_BuscarTurma)
+
         self.btn_BuscarTurma.config(text="Buscar")
         self.btn_BuscarTurma.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_BuscarTurma)
+
         #
         # btn_EditarTurma
         #
-        Style.ButtonHide(self.btn_EditarTurma)
+
         self.btn_EditarTurma.config(text="Editar")
         self.btn_EditarTurma.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_EditarTurma)
+
         #
         # btn_ExcluirTurma
         #
-        Style.ButtonHide(self.btn_ExcluirTurma)
+
         self.btn_ExcluirTurma.config(text="Excluir")
         self.btn_ExcluirTurma.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_ExcluirTurma)
+
         #
         # btn_AbrirTurma
         #
-        Style.ButtonHide(self.btn_AbrirTurma)
+        
         self.btn_AbrirTurma.config(text="Abrir")
         self.btn_AbrirTurma.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_AbrirTurma)
+
         #
         # componentes multiplos - buttonsMenu
         #
+
         self.ButtonsMenu = [
             
             ("Home", self.frm_Home),
@@ -190,6 +223,7 @@ class Form():
         self.ListView.config(bg=TemaConfig.tema.segundario)
         self.ListView.config(width=600)
         self.ListView.pack(fill="both", expand=True)
+        self.ListView.OnSelectItem = self.SelectCell
         Style.FrameListZebrado(self.ListView)
 
         self.ListView.AddColuna("ID","Nome","Nota","ID Turma")
@@ -201,7 +235,8 @@ class Form():
         #
         # F_principal
         #
-        self.F_principal.title("Menu Principal")
-        self.F_principal.geometry("800x600")
-        self.F_principal.state("zoomed")
-        self.F_principal.mainloop()
+
+        self.fp.title("Menu Principal")
+        self.fp.geometry("800x600")
+        self.fp.state("zoomed")
+        self.fp.mainloop()
