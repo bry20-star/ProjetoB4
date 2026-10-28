@@ -10,6 +10,9 @@ class Tema:
         destaque = "#0E639C"
         botao = "#3A3D42"
 
+        clicado = "#1F4E79"     # Um azul escuro fechado e sofisticado que contrasta muito bem com o primário
+        borda = "#3E4147"       # Um cinza médio para divisórias sutis elegantes
+
         fonte = ("Segoe UI",11)
         fonteTitulo = ("Segoe UI", 22, "bold")
 
@@ -19,9 +22,12 @@ class Tema:
         primario = "#F7F7F8"    # Fundo principal (Branco puro)
         segundario = "#FFFFFF"    # Fundo secundário para o zebrado (Cinza muito claro)
         texto = "#202123"        # Texto (Cinza escuro/quase preto para alto contraste)
-        hover = "#E2E4E7"        # Cor ao passar o rato por cima (Cinza claro suave)
+        hover = "#D8DBDF"        # Cor ao passar o rato por cima (Cinza claro suave)
         destaque = "#0E639C"     # Mantém o Azul institucional (funciona muito bem no claro)
-        botao = "#E0E2E5"       
+        botao = "#E4E6E9"       
+
+        clicado = "#D2E5F5"     # Um azul claro pastel e suave, ideal para destacar linhas no modo claro
+        borda = "#E2E4E7"       # Um cinza muito suave para linhas divisórias limpas
 
         fonte = ("Segoe UI",11)
         fonteTitulo = ("Segoe UI", 22, "bold")

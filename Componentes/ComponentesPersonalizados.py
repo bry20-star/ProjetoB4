@@ -9,10 +9,13 @@ class FrameList(tk.Frame):
 
         super().__init__(master)
 
+        self.winfo_toplevel().bind_all("<Button-1>", self.__ClickExterno)
         self.padxColuna = pdxColuna
         self.padyItems = pdyItems
         self.ItemColor1 = TemaConfig.tema.primario
         self.ItemColor2 = TemaConfig.tema.segundario
+        self.linhaAtual: FrameListItem = None
+        self.linhaAnterio: FrameListItem = None
 
         self.listColunas: List[tk.Label] = []
         self.listLinhas: List[FrameListItem] = []
@@ -22,25 +25,48 @@ class FrameList(tk.Frame):
         self.frm_Coluna.config(bg=TemaConfig.tema.segundario)
         self.frm_Coluna.pack(side="top", fill="x")
 
+        self.scrollbar = tk.Scrollbar(self, orient="vertical")
+        self.scrollbar.config(activebackground=TemaConfig.tema.destaque)
+        self.scrollbar.pack(side="right", fill="y")
+
         # canvas
-        self.canvas = tk.Canvas(self, bg="red", highlightthickness=0)
-        self.canvas.bind("<Configure>", lambda event: self.AtualizarCanvas(event))
+        self.canvas = tk.Canvas(self, bg="red", highlightthickness=0, yscrollcommand= self.scrollbar.set)
+        self.canvas.bind("<Configure>", lambda event: self._AtualizarCanvas(event))
         self.canvas.pack(fill="both", expand=True)
+
+        self.scrollbar.config(command=self.canvas.yview)
 
         # frame conteudo
         self.frm_Conteudo = tk.Frame(self.canvas, bg=self.ItemColor1, height=100)
 
         self.canvas_window = self.canvas.create_window(0, 0, window=self.frm_Conteudo, anchor="nw")
 
-        self.frm_Conteudo.bind("<Configure>", lambda event: self.AtualizarCanvas(event))
+        self.frm_Conteudo.bind("<Configure>", lambda event: self._AtualizarCanvas(event))
 
         self.pack_propagate(False)
 
-    def AtualizarCanvas(self, event):
+    #--------------------- metodos pra sobreescrever -----------------
+
+    def OnSelectItem(self):
+
+        pass
+
+    #--------------------
+
+    def __ClickExterno(self, event):
+
+        if isinstance(event.widget, FrameListItem): return
+        if isinstance(event.widget, Cells): return
+
+        if self.linhaAtual:
+
+            self.linhaAtual.config(bg=self.linhaAtual.cellCor)
+
+    def _AtualizarCanvas(self, event):
 
         self.canvas.itemconfigure(self.canvas_window, width=self.canvas.winfo_width())
 
-        #self.canvas.configure(crollregion=self.canvas.bbox("all"))
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
     def AddColuna(self,*text):
 
@@ -75,11 +101,31 @@ class FrameList(tk.Frame):
 
         self.listLinhas.append(frm_linha)
         
-    def Frame_Click(self, event):
+    def _SelectItem(self, event):
 
-        #self.config(highlightbackground=TemaConfig.tema.destaque, bg=TemaConfig.tema.destaque)
-        Style.AtualizarTema(1)
-        print("clicou")
+        compAtual = event.widget
+
+        self.linhaAnterio = self.linhaAtual
+
+        if self.linhaAnterio:
+
+            self.linhaAnterio.config(bg=self.linhaAnterio.cellCor)
+
+        if isinstance(compAtual, Cells):
+
+            linha = compAtual.master
+
+        else:
+
+            linha = compAtual
+
+        self.linhaAtual = linha
+
+        self.linhaAtual.config(bg=TemaConfig.tema.destaque)
+
+        self.canvas.update_idletasks()
+
+        self.OnSelectItem()
 
     def RemoveItem(self, item):
 
@@ -89,11 +135,19 @@ class FrameList(tk.Frame):
 
             self.listLinhas.remove(item)
 
+        if item == self.linhaAtual:
+
+            self.linhaAtual = None
+
+        if item == self.linhaAnterio:
+
+            self.linhaAnterio = None
+
         item.destroy()
 
     def GetItem(self, idItem):
 
-        if type(idItem)not in int: return None
+        if not isinstance(idItem, int): return None
 
         if idItem >= len(self.listLinhas) or idItem < 0: return None
 
@@ -111,8 +165,10 @@ class FrameListItem(tk.Frame):
         self.cellCor = frm_list.ItemColor1 if len(frm_list.listLinhas) % 2 else frm_list.ItemColor2
         self.config(bg=self.cellCor)
 
-        self.bind("<Button-1>", lambda event: frm_list.Frame_Click(event))
-        self.bind("<Configure>", lambda event: frm_list.AtualizarCanvas(event))
+        self.bind("<Button-1>", lambda event: frm_list._SelectItem(event))
+        self.bind("<Configure>", lambda event: frm_list._AtualizarCanvas(event))
+        self.bind("<Enter>", lambda event: self.__Enter(event))
+        self.bind("<Leave>", lambda event: self.__Leave(event))
         self.pack(side="top", fill="x") 
 
         if items:
@@ -125,6 +181,18 @@ class FrameListItem(tk.Frame):
 
                 self.grid_columnconfigure(i, weight=1)
     
+    def __Leave(self, event):
+
+        if self["bg"] == TemaConfig.tema.destaque: return
+
+        self.config(bg=self.cellCor)
+    
+    def __Enter(self, event):
+
+        if self["bg"] == TemaConfig.tema.destaque: return
+
+        self.config(bg=TemaConfig.tema.hover)
+
     def AddCell(self, i, item):
 
         cell = Cells(self, self.frm_list, i, item)
@@ -137,7 +205,7 @@ class FrameListItem(tk.Frame):
         
             itemId = int(item) 
         
-            if itemId < 0 or itemId >= len(self.list_cells):
+            if itemId >= 0 and itemId < len(self.list_cells):
 
                 return self.list_cells[itemId]
 
@@ -163,4 +231,4 @@ class Cells(tk.Label):
 
         self.grid(row=0, column=index, sticky="nsew", pady=frm_List.padyItems)
 
-        self.bind("<Button-1>", lambda event: frm_List.Frame_Click(event))
+        self.bind("<Button-1>", lambda event: frm_List._SelectItem(event))
