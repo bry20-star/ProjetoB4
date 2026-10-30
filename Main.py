@@ -1,4 +1,4 @@
-from Form.F_NotaAlunos import F_principal
+from Form.F_Principal import F_principal
 
 F_principal()
         
