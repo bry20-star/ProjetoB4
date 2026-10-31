@@ -30,14 +30,14 @@ class FrameList(tk.Frame):
         self.scrollbar.pack(side="right", fill="y")
 
         # canvas
-        self.canvas = tk.Canvas(self, bg="red", highlightthickness=0, yscrollcommand= self.scrollbar.set)
+        self.canvas = tk.Canvas(self, bg=TemaConfig.tema.primario, highlightthickness=0, yscrollcommand= self.scrollbar.set)
         self.canvas.bind("<Configure>", lambda event: self._AtualizarCanvas(event))
         self.canvas.pack(fill="both", expand=True)
 
         self.scrollbar.config(command=self.canvas.yview)
 
         # frame conteudo
-        self.frm_Conteudo = tk.Frame(self.canvas, bg=self.ItemColor1, height=100)
+        self.frm_Conteudo = tk.Frame(self.canvas, bg=self.ItemColor1, height=0)
 
         self.canvas_window = self.canvas.create_window(0, 0, window=self.frm_Conteudo, anchor="nw")
 
@@ -57,10 +57,11 @@ class FrameList(tk.Frame):
 
         if isinstance(event.widget, FrameListItem): return
         if isinstance(event.widget, Cells): return
-
+        if isinstance(event.widget, tk.Button): return
         if self.linhaAtual:
 
             self.linhaAtual.config(bg=self.linhaAtual.cellCor)
+            self.linhaAtual = None
 
     def _AtualizarCanvas(self, event):
 

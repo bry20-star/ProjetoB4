@@ -6,29 +6,11 @@ class Form:
     def InicializarComponentes(self,master):
 
         self.F_Hosp = tk.Toplevel()
-        self.frm_Conteudo = tk.Frame(self.F_Hosp)
-        self.frm_Superio = tk.Frame(self.frm_Conteudo)
-        self.canva = tk.Canvas(self.frm_Conteudo)
-        #
-        # frm_Conteudo
-        #
-        self.frm_Conteudo.config(bg=TemaConfig.tema.primario)
-        self.frm_Conteudo.pack(fill="both", expand=True)
-        #
-        # frm_Superio
-        #
-        self.frm_Superio.config(bg=TemaConfig.tema.primario)
-        self.frm_Superio.pack_propagate(False)
-        self.frm_Superio.pack(side="top", fill="x")
-        #
-        #
-        #
-        self.canva.create_line(20,20,200,20)
-        self.canva.pack(fill="y", expand=True)
+
         #
         # F_NovoHospede
         #
-        #
+
         altura = 600
         lagura = 400
         x = (self.F_Hosp.winfo_screenwidth() - lagura)//2

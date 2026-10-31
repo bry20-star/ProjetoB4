@@ -4,6 +4,7 @@ import tkinter as tk
 from typing import TYPE_CHECKING
 from Componentes.ComponentesPersonalizados import FrameList
 from Form.F_NovoHospede import F_NovoHospede
+from Form.F_EditarHospede import F_EditarHospede
 from Styles.Style import Style
 from Styles.Style import TemaConfig
 
@@ -175,6 +176,7 @@ class Form():
 
         self.btn_BuscarHospede.config(text="Buscar")
         self.btn_BuscarHospede.pack(side="left", padx=10)
+        self.btn_BuscarHospede.config(command=lambda: self.btn_BuscarHospede_Click())
         Style.ButtonHide(self.btn_BuscarHospede)
 
         #
@@ -183,6 +185,7 @@ class Form():
 
         self.btn_EditarHospede.config(text="Editar")
         self.btn_EditarHospede.pack(side="left", padx=10)
+        self.btn_EditarHospede.config(command=lambda: self.FormAbrir_Click(F_EditarHospede))
         Style.ButtonHide(self.btn_EditarHospede)
 
         #
@@ -191,6 +194,7 @@ class Form():
 
         self.btn_ExcluirHospede.config(text="Excluir")
         self.btn_ExcluirHospede.pack(side="left", padx=10)
+        self.btn_ExcluirHospede.config(command=lambda: self.btn_ExcluirHospede_Click())
         Style.ButtonHide(self.btn_ExcluirHospede)
 
         #
@@ -224,13 +228,17 @@ class Form():
         self.flt_Hospede.config(width=600)
         self.flt_Hospede.pack(fill="both", expand=True)
         self.flt_Hospede.OnSelectItem = self.SelectCell
+        self.flt_Hospede.AddColuna("ID", "Hóspede", "Tipo Cobrança", "ID Quarto")
         Style.FrameListZebrado(self.flt_Hospede)
+      
 
-        self.flt_Hospede.AddColuna("ID","Nome","Forma de Pagamento","ID Quarto")
-        
-        for i in range(0,50):
+    def CarregarItem_flt_Hospede(self, listItem):
 
-            self.flt_Hospede.AddItem(f"{i}","bryan","Mensal: R$67,00","02")
+        for item in listItem:
+
+            self.flt_Hospede.AddItem(item[0], item[1], item[2], item[3])
+
+        Style.FrameListZebrado(self.flt_Hospede)
 
         #
         # F_principal
