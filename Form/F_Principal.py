@@ -15,7 +15,9 @@ class F_principal(Form):
 
         f(self.fp)
 
-    def SelectCell(self):
+    #chamado quando seleciona o item
+
+    def SelectCell(self): 
         
        return  
 

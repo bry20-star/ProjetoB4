@@ -219,3 +219,4 @@ class Style():
             m = item["metodo"]
             
             m(c)
+
