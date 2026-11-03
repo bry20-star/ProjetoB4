@@ -159,6 +159,7 @@ class Form():
         #
 
         self.ent_BuscarHospede.pack(side="left", padx=10)
+        self.ent_BuscarHospede.insert(0, "Buscar:")
         Style.EntryBord(self.ent_BuscarHospede)
 
         #
@@ -230,13 +231,12 @@ class Form():
         self.flt_Hospede.OnSelectItem = self.SelectCell
         self.flt_Hospede.AddColuna("ID", "Hóspede", "Tipo Cobrança", "ID Quarto")
         Style.FrameListZebrado(self.flt_Hospede)
-      
 
     def CarregarItem_flt_Hospede(self, listItem):
 
         for item in listItem:
 
-            self.flt_Hospede.AddItem(item[0], item[1], item[2], item[3])
+            self.flt_Hospede.AddItem(item[0], item[1], item[4], item[3])
 
         Style.FrameListZebrado(self.flt_Hospede)
 

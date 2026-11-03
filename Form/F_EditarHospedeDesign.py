@@ -1,10 +1,9 @@
 # arquivo de desiner
 
 import tkinter as tk
-from tkinter import ttk
 from typing import TYPE_CHECKING
 from Styles.Style import Style
-from Styles.Style import TemaConfig
+from Componentes.ComponentesPersonalizados import ComboBox
 
 if TYPE_CHECKING:
 
@@ -27,7 +26,7 @@ class Form():
         self.ent_IdHospede = tk.Entry(self.frm_IdHospede)
         self.ent_NameHospede = tk.Entry(self.frm_NameHospede)
         self.ent_IdQuarto = tk.Entry(self.frm_IdQuarto)
-        self.ccb_TipoCobranca = ttk.Combobox(self.frm_TipoCobranca)
+        self.ccb_TipoCobranca = ComboBox(self.frm_TipoCobranca)
         self.btn_Confirmar = tk.Button(self.frm_Conteudo)
                 
         #
@@ -130,14 +129,8 @@ class Form():
         #
         # ccb_TipoCobranca
         #
-
-        style = ttk.Style()
-        style.theme_use('clam')
-        style.configure('TCombobox', fieldbackground="red")
-        self.F_EditarHosp.option_add('*TCombobox*Listbox*Background', "red")
+       
         self.ccb_TipoCobranca.pack(anchor="w")
-        self.ccb_TipoCobranca.config(state="readonly", values=["Diária", "Mensal", "Anual"])
-        self.ccb_TipoCobranca.current(0)
 
         #
         # btn_Confirmar
@@ -145,6 +138,7 @@ class Form():
 
         self.btn_Confirmar.pack(side="bottom", expand=True, fill="both")
         self.btn_Confirmar.config(text="Confirmar")
+        self.btn_Confirmar.config(command=lambda: self.Click_btn_Confirmar())
         Style.ButtonHide(self.btn_Confirmar)
 
         #
@@ -159,4 +153,3 @@ class Form():
         self.F_EditarHosp.geometry(f"{lagura}x{altura}+{x}+{y}")
         self.F_EditarHosp.transient(master)
         self.F_EditarHosp.grab_set()
-        self.F_EditarHosp.wait_window()

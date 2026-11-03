@@ -1,5 +1,6 @@
 from Banco.Banco import Banco
 from Form.F_PrincipalDesign import Form
+from Form.F_EditarHospede import F_EditarHospede
 import tkinter as tk
 from tkinter import messagebox
 
@@ -9,13 +10,35 @@ class F_principal(Form):
 
         self.InicializarComponentes()
 
-        self.CarregarItem_flt_Hospede(Banco.DQL("SELECT * FROM tb_Hospedes"))
+        self.CarregarItem_flt_Hospede(Banco.DQL(
+
+            """
+            SELECT *,
+
+                CASE
+
+                    WHEN t_TipoCobranca = 'A' THEN 'Anual' 
+                    WHEN t_TipoCobranca = 'M' THEN 'Mensal' 
+                    WHEN t_TipoCobranca = 'D' THEN 'Diaria'
+                    
+                END 
+                    
+                FROM tb_Hospedes
+                    
+            """
+            
+        ))
 
     def FormAbrir_Click(self, f):
 
-        f(self.fp)
+        if f == F_EditarHospede:
+            
+            if not self.flt_Hospede.linhaAtual: 
+                
+                messagebox.showerror("Error","Nenhum Hóspede selecionador")
+                return 
 
-    #chamado quando seleciona o item
+        f(self.fp, self)
 
     def SelectCell(self): 
         
@@ -33,7 +56,7 @@ class F_principal(Form):
 
         if not self.flt_Hospede.linhaAtual: 
             
-            messagebox.showerror("Error","Nenhum item selecionador")
+            messagebox.showerror("Error","Nenhum Hóspede selecionador")
             return
 
         if (not messagebox.askyesno("Excluir?" ,"Deseja Excluir Hóspede?")): return
@@ -60,6 +83,6 @@ class F_principal(Form):
 
             item.pack(fill="x", expand=True)
 
-            if not self.ent_BuscarHospede.get() in item.list_cells[1].cget("text"):
+            if not self.ent_BuscarHospede.get().lower() in item.list_cells[1].cget("text").lower():
 
                 item.pack_forget()
