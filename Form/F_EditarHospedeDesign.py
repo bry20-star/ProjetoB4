@@ -26,7 +26,7 @@ class Form():
         self.ent_IdHospede = tk.Entry(self.frm_IdHospede)
         self.ent_NameHospede = tk.Entry(self.frm_NameHospede)
         self.ent_IdQuarto = tk.Entry(self.frm_IdQuarto)
-        self.ccb_TipoCobranca = ComboBox(self.frm_TipoCobranca)
+        self.cbb_TipoCobranca = ComboBox(self.frm_TipoCobranca)
         self.btn_Confirmar = tk.Button(self.frm_Conteudo)
                 
         #
@@ -127,10 +127,10 @@ class Form():
         Style.EntryBord(self.ent_IdQuarto) 
 
         #
-        # ccb_TipoCobranca
+        # cbb_TipoCobranca
         #
        
-        self.ccb_TipoCobranca.pack(anchor="w")
+        self.cbb_TipoCobranca.pack(anchor="w")
 
         #
         # btn_Confirmar
