@@ -35,10 +35,10 @@ class F_principal(Form):
             
         ))
 
-        self.flt_Hospede.SetColuna(colunaId=0, peso=1)
-        self.flt_Hospede.SetColuna(colunaId=1, peso=2)
-        self.flt_Hospede.SetColuna(colunaId=2, peso=1)
-        self.flt_Hospede.SetColuna(colunaId=3, peso=1)
+        # self.flt_Hospede.SetColuna(colunaId=0, peso=1)
+        # self.flt_Hospede.SetColuna(colunaId=1, peso=2)
+        # self.flt_Hospede.SetColuna(colunaId=2, peso=1)
+        # self.flt_Hospede.SetColuna(colunaId=3, peso=1)
 
         self.fp.mainloop()
 
