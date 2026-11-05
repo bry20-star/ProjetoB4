@@ -1,5 +1,6 @@
 # arquivo de desiner
 
+# Importações 
 import tkinter as tk
 from typing import TYPE_CHECKING
 from Componentes.ComponentesPersonalizados import FrameList
@@ -55,7 +56,7 @@ class Form():
             Style.Frame(frm)
             frm.pack_propagate(False)
             frm.forget()
-
+            
         self.frm_Home.pack(fill="both", expand=True)
 
         #
@@ -159,6 +160,7 @@ class Form():
         #
 
         self.ent_BuscarHospede.pack(side="left", padx=10)
+        self.ent_BuscarHospede.insert(0, "Buscar:")
         Style.EntryBord(self.ent_BuscarHospede)
 
         #
@@ -227,16 +229,13 @@ class Form():
         self.flt_Hospede.config(bg=TemaConfig.tema.segundario)
         self.flt_Hospede.config(width=600)
         self.flt_Hospede.pack(fill="both", expand=True)
-        self.flt_Hospede.OnSelectItem = self.SelectCell
-        self.flt_Hospede.AddColuna("ID", "Hóspede", "Tipo Cobrança", "ID Quarto")
         Style.FrameListZebrado(self.flt_Hospede)
-      
 
     def CarregarItem_flt_Hospede(self, listItem):
 
         for item in listItem:
 
-            self.flt_Hospede.AddItem(item[0], item[1], item[2], item[3])
+            self.flt_Hospede.AddItem(item[0], item[1], item[4], item[3])
 
         Style.FrameListZebrado(self.flt_Hospede)
 
@@ -247,4 +246,3 @@ class Form():
         self.fp.title("Accommodation Hotel")
         self.fp.geometry("800x600")
         self.fp.state("zoomed")
-        self.fp.mainloop()

@@ -121,44 +121,41 @@ class Style():
             relief="flat",
             highlightthickness=1,
             highlightbackground=TemaConfig.tema.primario,
-            highlightcolor=TemaConfig.tema.destaque
+            highlightcolor=TemaConfig.tema.destaque,
+            readonlybackground=TemaConfig.tema.primario
 
         )
 
-        comp.insert(0, "Buscar:")
+        textInicial = comp.get()
 
-        comp.bind("<Enter>", lambda event: Style.__EntryEnter("mouse",event))
-        comp.bind("<FocusIn>", lambda event: Style.__EntryEnter("tab",event))
-        comp.bind("<Leave>", lambda event: Style.__EntryLeave("mouse",event))
-        comp.bind("<FocusOut>", lambda event: Style.__EntryLeave("tab",event))
+        comp.bind("<Enter>", lambda event: Style.__EntryEnter(textInicial,  event))
+        comp.bind("<FocusIn>", lambda event: Style.__EntryEnter(textInicial, event))
+        comp.bind("<Leave>", lambda event: Style.__EntryLeave(textInicial, event))
+        comp.bind("<FocusOut>", lambda event: Style.__EntryLeave(textInicial, event))
 
         if any(item["comp"] == comp for item in Style._componentes): return
 
         Style._componentes.append({"comp": comp, "metodo": Style.EntryBord })
 
-    def __EntryEnter(entrada: str,event):
+    def __EntryEnter(textInicial: str, event):
 
         comp:tk.Entry = event.widget
 
-        if comp.get() == "Buscar:":
+        if comp.get() == textInicial:
 
             comp.delete(0,tk.END)
 
         comp.config(bg=TemaConfig.tema.hover, fg=TemaConfig.tema.texto)
 
-    def __EntryLeave(entrada: str,event):
+    def __EntryLeave(textInicial: str, event):
 
         comp: tk.Entry = event.widget
-
-        if entrada == "tab":
-
-            comp.delete(0,tk.END)
 
         if comp.winfo_toplevel().focus_get() == comp: return
 
         if comp.get() == "":
 
-            comp.insert(0, "Buscar:")
+            comp.insert(0, textInicial)
 
         comp.config(bg=TemaConfig.tema.primario, fg=TemaConfig.tema.hover)
 
@@ -219,3 +216,4 @@ class Style():
             m = item["metodo"]
             
             m(c)
+
