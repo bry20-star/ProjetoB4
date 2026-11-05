@@ -27,11 +27,11 @@ class F_EditarHospede(Form):
 		self.ent_NameHospede.insert(0, self.linhaAtual.list_cells[1].cget("text"))
 		Style.EntryBord(self.ent_NameHospede)
 
-		self.ccb_TipoCobranca.AddItem({"Anual":"A", "Mensal":"M", "Diaria":"D"})
-		self.ccb_TipoCobranca.itemAtual = self.ccb_TipoCobranca.GetItem(self.linhaAtual.list_cells[2].cget("text"))
-		self.ccb_TipoCobranca.ent_Box.delete(0, tk.END)
-		self.ccb_TipoCobranca.ent_Box.insert(0, self.linhaAtual.list_cells[2].cget("text"))
-		self.ccb_TipoCobranca.ent_Box.config(state="readonly")
+		self.cbb_TipoCobranca.AddItem({"Anual":"A", "Mensal":"M", "Diaria":"D"})
+		self.cbb_TipoCobranca.itemAtual = self.cbb_TipoCobranca.GetItem(self.linhaAtual.list_cells[2].cget("text"))
+		self.cbb_TipoCobranca.ent_Box.delete(0, tk.END)
+		self.cbb_TipoCobranca.ent_Box.insert(0, self.linhaAtual.list_cells[2].cget("text"))
+		self.cbb_TipoCobranca.ent_Box.config(state="readonly")
 
 		self.ent_IdQuarto.delete(0, tk.END)
 		self.ent_IdQuarto.insert(0, self.linhaAtual.list_cells[3].cget("text"))
@@ -41,32 +41,37 @@ class F_EditarHospede(Form):
 
 	def Click_btn_Confirmar(self):
 
-		if not self.ent_IdQuarto.get().strip(): 
-			
-			messagebox.showerror("Error", f"Campo {self.lb_IdQuarto.cget('text')} não pode estar vazio")
-			return
-
-		if not self.ent_IdQuarto.get().isdigit(): 
-			
-			messagebox.showerror("Error", f"Campo {self.lb_IdQuarto.cget('text')} não ter letras")
-			return
-
 		if not self.ent_NameHospede.get().strip(): 
 			
 			messagebox.showerror("Error",f"Campo {self.lb_NameHospede.cget('text')} não pode estar vazio")
+			self.ent_NameHospede.focus_set()
 			return
 
-		if any(char.isdigit() for char in self.ent_NameHospede.get()): 
+		if not self.ent_NameHospede.get().replace(" ", "").isalpha(): 
 			
-			messagebox.showerror("Error",f"Campo {self.lb_NameHospede.cget('text')} não pode ter números")
+			messagebox.showerror("Error",f"Campo {self.lb_NameHospede.cget('text')} não pode ter números ou caracters especiais")
+			self.ent_NameHospede.focus_set()
 			return
-				
+
 		for item in self.fp.flt_Hospede.listLinhas:
 
 			if self.ent_NameHospede.get().title() == item.list_cells[1].cget("text") and int(self.ent_IdHospede.get()) != int(item.list_cells[0].cget("text")):
 	
-				messagebox.showerror("Error", f"Hóspede com esse nome já existir")
+				messagebox.showerror("Error", f"Hóspede já registrado com esse nome")
+				self.ent_NameHospede.focus_set()
 				return
+
+		if not self.ent_IdQuarto.get().strip(): 
+			
+			messagebox.showerror("Error", f"Campo {self.lb_IdQuarto.cget('text')} não pode estar vazio")
+			self.ent_IdQuarto.focus_set()
+			return
+
+		if not self.ent_IdQuarto.get().isdigit(): 
+			
+			messagebox.showerror("Error", f"Campo {self.lb_IdQuarto.cget('text')} não ter letras ou caracteres especiais")
+			self.ent_IdQuarto.focus_set()
+			return
 
 		Banco.SetDado(
 
@@ -76,13 +81,13 @@ class F_EditarHospede(Form):
 			dados={
 
 				"t_NameHospede": self.ent_NameHospede.get().title(),
-				"t_TipoCobranca": self.ccb_TipoCobranca.itemAtual.value.title(),
-				"n_IdQuarto": self.ent_IdQuarto.get().title()
+				"t_TipoCobranca": self.cbb_TipoCobranca.itemAtual.value.title(),
+				"n_IdQuarto": int(self.ent_IdQuarto.get())
 			}
 		)
 
 		self.linhaAtual.list_cells[1].config(text=self.ent_NameHospede.get().title())
-		self.linhaAtual.list_cells[2].config(text=self.ccb_TipoCobranca.itemAtual.viewValue.title())
+		self.linhaAtual.list_cells[2].config(text=self.cbb_TipoCobranca.itemAtual.viewValue.title())
 		self.linhaAtual.list_cells[3].config(text=self.ent_IdQuarto.get().title())
 		
 		self.F_EditarHosp.destroy()

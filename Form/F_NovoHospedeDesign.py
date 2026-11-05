@@ -10,15 +10,12 @@ class Form:
         self.F_Hosp = tk.Toplevel()
 
         self.frm_Conteudo = tk.Frame(self.F_Hosp)
-        self.frm_IdHospede = tk.Frame(self.frm_Conteudo)
         self.frm_NameHospede = tk.Frame(self.frm_Conteudo)
         self.frm_TipoCobranca = tk.Frame(self.frm_Conteudo)
         self.frm_IdQuarto = tk.Frame(self.frm_Conteudo)
-        self.lb_IdHospede = tk.Label(self.frm_IdHospede)
         self.lb_NameHospede = tk.Label(self.frm_NameHospede)
         self.lbTipoCobranca = tk.Label(self.frm_TipoCobranca)
         self.lb_IdQuarto = tk.Label(self.frm_IdQuarto)
-        self.ent_IdHospede = tk.Entry(self.frm_IdHospede)
         self.ent_NameHospede = tk.Entry(self.frm_NameHospede)
         self.ent_IdQuarto = tk.Entry(self.frm_IdQuarto)
         self.cbb_TipoCobranca = ComboBox(self.frm_TipoCobranca)
@@ -59,14 +56,6 @@ class Form:
         Style.FrameBord(self.frm_IdQuarto)
 
         #
-        # lb_IdHospede
-        #
-
-        self.lb_IdHospede.pack(anchor="w")
-        self.lb_IdHospede.config(height=2, text="ID do Hóspede")
-        Style.LabeHide(self.lb_IdHospede)
-
-        #
         # lb_NameHospede 
         #
 
@@ -91,13 +80,6 @@ class Form:
         Style.LabeHide(self.lb_IdQuarto)
 
         #
-        # ent_IdHospede
-        #
-
-        self.ent_IdHospede.pack(anchor="w")
-        Style.EntryBord(self.ent_IdHospede) 
-
-        #
         # ent_NameHospede
         #
 
@@ -117,6 +99,7 @@ class Form:
         #
        
         self.cbb_TipoCobranca.pack(anchor="w")
+        self.cbb_TipoCobranca.ent_Box.config(state="readonly")
 
         #
         # btn_Confirmar
@@ -137,6 +120,6 @@ class Form:
         y = (self.F_Hosp.winfo_screenheight() - altura)//2
         self.F_Hosp.title("Novo Hóspede")
         self.F_Hosp.geometry(f"{lagura}x{altura}+{x}+{y}")
+        self.F_Hosp.resizable(False, False)
         self.F_Hosp.transient(master)
         self.F_Hosp.grab_set()
-        self.F_Hosp.wait_window()

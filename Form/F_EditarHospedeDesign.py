@@ -151,5 +151,6 @@ class Form():
         y = (self.F_EditarHosp.winfo_screenheight() - altura)//2
         self.F_EditarHosp.title("Editar Hóspede")
         self.F_EditarHosp.geometry(f"{lagura}x{altura}+{x}+{y}")
+        self.F_EditarHosp.resizable(False, False)
         self.F_EditarHosp.transient(master)
         self.F_EditarHosp.grab_set()

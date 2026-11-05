@@ -1,6 +1,8 @@
+# importações 
 from Banco.Banco import Banco
 from Form.F_PrincipalDesign import Form
 from Form.F_EditarHospede import F_EditarHospede
+from Form.F_Login import F_Login
 import tkinter as tk
 from tkinter import messagebox
 
@@ -8,7 +10,11 @@ class F_principal(Form):
 
     def __init__(self):
 
+        F_Login()
+
         self.InicializarComponentes()
+
+        self.flt_Hospede.AddColuna("ID", "Hóspede", "Tipo Cobrança", "ID Quarto")
 
         self.CarregarItem_flt_Hospede(Banco.DQL(
 
@@ -29,6 +35,13 @@ class F_principal(Form):
             
         ))
 
+        self.flt_Hospede.SetColuna(colunaId=0, peso=1)
+        self.flt_Hospede.SetColuna(colunaId=1, peso=2)
+        self.flt_Hospede.SetColuna(colunaId=2, peso=1)
+        self.flt_Hospede.SetColuna(colunaId=3, peso=1)
+
+        self.fp.mainloop()
+
     def FormAbrir_Click(self, f):
 
         if f == F_EditarHospede:
@@ -39,10 +52,6 @@ class F_principal(Form):
                 return 
 
         f(self.fp, self)
-
-    def SelectCell(self): 
-        
-       return  
 
     def MostraFrame_Click(self,frame):
 
