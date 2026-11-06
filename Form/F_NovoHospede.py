@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from Form.F_NovoHospedeDesign import Form
 from Banco.Banco import Banco
 from tkinter import messagebox
+from Models.Class import Tabelas as tb
 
 if TYPE_CHECKING:
 
@@ -37,6 +38,12 @@ class F_NovoHospede(Form):
             self.ent_NameHospede.focus_set()
             return
 
+        if len(self.ent_NameHospede.get().strip()) > 200:
+
+            messagebox.showerror("Error", f"Nome muito grande")
+            self.ent_NameHospede.focus_set()
+            return
+
         for item in self.fp.flt_Hospede.listLinhas:
 
             if  self.ent_NameHospede.get().title() == item.list_cells[1].cget("text"):
@@ -59,12 +66,12 @@ class F_NovoHospede(Form):
 
         hosp = Banco.AddDado(
 
-            tabela="tb_Hospedes", 
+            tabela=tb.Hospede.tabela, 
             dados={
             
-                "t_NameHospede": self.ent_NameHospede.get().title(),
-                "t_TipoCobranca": self.cbb_TipoCobranca.itemAtual.value.title(),
-                "n_IdQuarto": int(self.ent_IdQuarto.get())
+                tb.Hospede.t_Nome : self.ent_NameHospede.get().title(),
+                tb.Hospede.t_TipoCobranca : self.cbb_TipoCobranca.itemAtual.value.title(),
+                tb.Hospede.n_IdQuarto : int(self.ent_IdQuarto.get())
             }            
         )
 

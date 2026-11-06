@@ -1,5 +1,6 @@
 # importações 
 from string import Template
+from turtle import bgcolor
 from typing import List
 import tkinter as tk
 from Styles.Style import Style
@@ -14,6 +15,7 @@ class FrameList(tk.Frame):
         self.winfo_toplevel().bind_all("<Button-1>", self.__ClickExterno)
         self.padxColuna = pdxColuna
         self.padyColuna = pdyColuna
+        
         self.padyItem = pdyItem
         self.padxItem = pdxItem
         self.frm_Coluna_bg = TemaConfig.tema.segundario
@@ -150,10 +152,12 @@ class FrameList(tk.Frame):
             
         for i in range(len(text)):
 
-            self.frm_Coluna.grid_columnconfigure(i, weight=1)
+            self.frm_Coluna.grid_columnconfigure(i, weight=self.listColunas[i].peso)
 
 
     def SetColuna(self, colunaId, peso):
+
+        self.listColunas[colunaId].peso = peso
 
         self.frm_Coluna.grid_columnconfigure(index=colunaId, weight=peso)
 
@@ -202,17 +206,17 @@ class FrameList(tk.Frame):
 
 class FrameListItem(tk.Frame):
 
-    def __init__(self, master, frm_list: FrameList,*items):
+    def __init__(self, master, flt: FrameList,*items):
 
         super().__init__(master)
 
         self.list_cells: list[FrameListItemCell] = []
-        self.frm_list = frm_list
-        self.cellCor = frm_list.ItemColor1 if len(frm_list.listLinhas) % 2 else frm_list.ItemColor2
+        self.frm_list = flt
+        self.cellCor = flt.ItemColor1 if len(flt.listLinhas) % 2 else flt.ItemColor2
         self.config(bg=self.cellCor)
 
-        self.bind("<Button-1>", lambda event: frm_list._SelectItem(event))
-        self.bind("<Configure>", lambda event: frm_list._AtualizarCanvas(event))
+        self.bind("<Button-1>", lambda event: flt._SelectItem(event))
+        self.bind("<Configure>", lambda event: flt._AtualizarCanvas(event))
         self.bind("<Enter>", lambda event: self.__Enter(event))
         self.bind("<Leave>", lambda event: self.__Leave(event))
         self.pack(side="top", fill="x") 
@@ -225,7 +229,7 @@ class FrameListItem(tk.Frame):
 
             for i in range(len(items)):
 
-                self.grid_columnconfigure(i, weight=1)
+                self.grid_columnconfigure(i, weight=flt.listColunas[i].peso)
     
     #--------------------- metodos internos -------------------------------
 
@@ -281,6 +285,8 @@ class FrameListCollum(tk.Label):
         
         super().__init__(flt.frm_Coluna, text=txt, width=20)
 
+        self.peso = 1
+
         self.config(
 
             bg=flt.lb_Coluna_bg, 
@@ -310,6 +316,8 @@ class ComboBox(tk.Frame):
     def __init__(self, master): 
 
         super().__init__(master)
+        self.winfo_toplevel().bind("<FocusOut>", self.__FocusOut_Janela)
+        self.winfo_toplevel().bind("<Configure>", self.__Configure_Janela)
         self.tema = TemaConfig.tema
         self.list_Items: List[ComboBoxItem] = []
         self.item_bg = TemaConfig.tema.primario
@@ -321,7 +329,7 @@ class ComboBox(tk.Frame):
         self.frm_Items_bg = TemaConfig.tema.primario
         self.listItemsAberta = False
         self.itemAtual: ComboBoxItem = None
-
+       
         self.ent_Box = tk.Entry(
 
             self,
@@ -382,10 +390,9 @@ class ComboBox(tk.Frame):
         self.F_ListItems.overrideredirect(True)
         self.F_ListItems.config(bg=self.frm_Items_bg)
         self.F_ListItems.withdraw() 
-        self.F_ListItems.bind("<FocusOut>", lambda event: self.__Fechar_F_ListItems(event))
 
         # Canvas
-        self.canvas = tk.Canvas(self.F_ListItems, bg=self.frm_Items_bg, highlightthickness=0)
+        self.canvas = tk.Canvas(self.F_ListItems, bg=self.item_bg, highlightthickness=0)
 
         # frm_Scrollbar
         self.frm_Scrollbar = tk.Frame(self.F_ListItems, width=1, bg=self.frm_Items_bg)
@@ -407,6 +414,18 @@ class ComboBox(tk.Frame):
         self.canvas.bind("<Configure>", lambda event: self.canvas.itemconfigure(self.canvas_window, width=event.width))
 
     # ------------------------- metodos internos -------------------------------------------
+    
+    def __Configure_Janela(self, event):
+
+        if not self.listItemsAberta: return
+
+        self.__Atualizar_F_ListItems()
+
+    def __FocusOut_Janela(self, event):
+
+        if self.listItemsAberta:
+
+            self.__Fechar_F_ListItems()
 
     def __Enter_btn_Seta(self, event):
 
@@ -483,7 +502,7 @@ class ComboBox(tk.Frame):
         self.canvas.pack(side="left", fill="both", expand=True)
         self.F_ListItems.deiconify()
         self.F_ListItems.lift()
-        self.F_ListItems.focus_set()
+        # self.F_ListItems.focus_set()
 
     def _SelectItem(self, item: "ComboBoxItem", event):
 

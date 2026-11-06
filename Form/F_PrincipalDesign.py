@@ -8,6 +8,7 @@ from Form.F_NovoHospede import F_NovoHospede
 from Form.F_EditarHospede import F_EditarHospede
 from Styles.Style import Style
 from Styles.Style import TemaConfig
+from Models.Class import Tabelas as tb
 
 if TYPE_CHECKING:
 
@@ -15,7 +16,6 @@ if TYPE_CHECKING:
 
 class Form():
 
-    # metodo que criar e configura os componentes
     def InicializarComponentes(self: "F_principal"):
         
         self.fp = tk.Tk()
@@ -235,7 +235,7 @@ class Form():
 
         for item in listItem:
 
-            self.flt_Hospede.AddItem(item[0], item[1], item[4], item[3])
+            self.flt_Hospede.AddItem(item[tb.Hospede.n_Id], item[tb.Hospede.t_Nome ], item["Tipo"], item[ tb.Hospede.n_IdQuarto ])
 
         Style.FrameListZebrado(self.flt_Hospede)
 

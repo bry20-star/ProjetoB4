@@ -5,6 +5,7 @@ from tkinter import messagebox
 from Form.F_EditarHospedeDesign import Form
 from Banco.Banco import Banco
 from Styles.Style import Style
+from Models.Class import Tabelas as tb
 
 if TYPE_CHECKING:
 
@@ -49,7 +50,13 @@ class F_EditarHospede(Form):
 
 		if not self.ent_NameHospede.get().replace(" ", "").isalpha(): 
 			
-			messagebox.showerror("Error",f"Campo {self.lb_NameHospede.cget('text')} não pode ter números ou caracters especiais")
+			messagebox.showerror("Error", f"Campo {self.lb_NameHospede.cget('text')} não pode ter números ou caracters especiais")
+			self.ent_NameHospede.focus_set()
+			return
+
+		if len(self.ent_NameHospede.get().strip()) > 200:
+
+			messagebox.showerror("Error", f"Nome muito grande")
 			self.ent_NameHospede.focus_set()
 			return
 
@@ -76,13 +83,13 @@ class F_EditarHospede(Form):
 		Banco.SetDado(
 
 			dadoId=int(self.ent_IdHospede.get()),
-			tabela="tb_Hospedes",
-			idKey="n_IdHospede",
+			tabela=tb.Hospede.tabela,
+			idKey=tb.Hospede.n_Id,
 			dados={
 
-				"t_NameHospede": self.ent_NameHospede.get().title(),
-				"t_TipoCobranca": self.cbb_TipoCobranca.itemAtual.value.title(),
-				"n_IdQuarto": int(self.ent_IdQuarto.get())
+				tb.Hospede.t_Nome : self.ent_NameHospede.get().title(),
+				tb.Hospede.t_TipoCobranca : self.cbb_TipoCobranca.itemAtual.value.title(),
+				tb.Hospede.n_IdQuarto : int(self.ent_IdQuarto.get())
 			}
 		)
 
