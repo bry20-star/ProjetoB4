@@ -21,7 +21,7 @@ class Form():
         self.frm_IdQuarto = tk.Frame(self.frm_Conteudo)
         self.lb_IdHospede = tk.Label(self.frm_IdHospede)
         self.lb_NameHospede = tk.Label(self.frm_NameHospede)
-        self.lbTipoCobranca = tk.Label(self.frm_TipoCobranca)
+        self.lb_TipoCobranca = tk.Label(self.frm_TipoCobranca)
         self.lb_IdQuarto = tk.Label(self.frm_IdQuarto)
         self.ent_IdHospede = tk.Entry(self.frm_IdHospede)
         self.ent_NameHospede = tk.Entry(self.frm_NameHospede)
@@ -92,9 +92,9 @@ class Form():
         # lb_TipoCobranca
         #
 
-        self.lbTipoCobranca.pack(anchor="w")
-        self.lbTipoCobranca.config(height=2, text="Tipo de Cobrança")
-        Style.LabeHide(self.lbTipoCobranca)
+        self.lb_TipoCobranca.pack(anchor="w")
+        self.lb_TipoCobranca.config(height=2, text="Tipo de Cobrança")
+        Style.LabeHide(self.lb_TipoCobranca)
 
         #
         # lb_IdQuarto 

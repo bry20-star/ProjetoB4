@@ -1,4 +1,3 @@
-from ast import Return
 import sqlite3
 import os
 
@@ -11,7 +10,9 @@ class Banco:
     @staticmethod
     def __ConnectionBanco():
 
-        return sqlite3.connect(Banco.caminhoBanco)
+        connect = sqlite3.connect(Banco.caminhoBanco)
+        connect.row_factory = sqlite3.Row
+        return connect
 
     @staticmethod
     def DML(query: str):

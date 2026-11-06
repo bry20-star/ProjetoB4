@@ -5,6 +5,7 @@ from Form.F_EditarHospede import F_EditarHospede
 from Form.F_Login import F_Login
 import tkinter as tk
 from tkinter import messagebox
+from Models.Class import Tabelas as tb
 
 class F_principal(Form):
 
@@ -16,27 +17,24 @@ class F_principal(Form):
 
         self.flt_Hospede.AddColuna("ID", "Hóspede", "Tipo Cobrança", "ID Quarto")
 
-        self.CarregarItem_flt_Hospede(Banco.DQL(
+        self.CarregarItem_flt_Hospede(Banco.DQL(f"""
 
-            """
             SELECT *,
 
                 CASE
 
-                    WHEN t_TipoCobranca = 'A' THEN 'Anual' 
-                    WHEN t_TipoCobranca = 'M' THEN 'Mensal' 
-                    WHEN t_TipoCobranca = 'D' THEN 'Diaria'
+                    WHEN {tb.Hospede.t_TipoCobranca} = 'A' THEN 'Anual' 
+                    WHEN {tb.Hospede.t_TipoCobranca} = 'M' THEN 'Mensal' 
+                    WHEN {tb.Hospede.t_TipoCobranca} = 'D' THEN 'Diaria'
                     
-                END 
+                END as 'tipo'
                     
-                FROM tb_Hospedes
+                FROM {tb.Hospede.tabela}
                     
-            """
-            
-        ))
+        """))
 
         self.flt_Hospede.SetColuna(colunaId=0, peso=1)
-        self.flt_Hospede.SetColuna(colunaId=1, peso=2)
+        self.flt_Hospede.SetColuna(colunaId=1, peso=3)
         self.flt_Hospede.SetColuna(colunaId=2, peso=1)
         self.flt_Hospede.SetColuna(colunaId=3, peso=1)
 
@@ -70,10 +68,10 @@ class F_principal(Form):
 
         if (not messagebox.askyesno("Excluir?" ,"Deseja Excluir Hóspede?")): return
 
-        Banco.DeleteDado(int(self.flt_Hospede.linhaAtual.list_cells[0].cget("text")), "tb_Hospedes","n_IdHospede")
+        Banco.DeleteDado(int(self.flt_Hospede.linhaAtual.list_cells[0].cget("text")), tb.Hospede.tabela, tb.Hospede.n_Id )
 
         self.flt_Hospede.RemoveItem(self.flt_Hospede.linhaAtual)
-
+        
     def btn_BuscarHospede_Click(self):
 
         if self.ent_BuscarHospede.get() == "" or self.ent_BuscarHospede.get() == "Buscar:" : 
