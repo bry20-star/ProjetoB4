@@ -3,7 +3,7 @@
 # Importações 
 import tkinter as tk
 from typing import TYPE_CHECKING
-from Componentes.ComponentesPersonalizados import FrameList
+from Componentes.ComponentesPersonalizados import FrameList, ComboBox
 from Form.F_NovoHospede import F_NovoHospede
 from Form.F_EditarHospede import F_EditarHospede
 from Styles.Style import Style
@@ -24,32 +24,76 @@ class Form():
         self.frm_BarraSuperio = tk.Frame(self.fp)
         self.frm_Botoes = tk.Frame(self.frm_BarraLateral)
         self.frm_Conteudo = tk.Frame(self.pw_Panel)
+        self.lb_BSTitulo = tk.Label(self.frm_BarraSuperio)
+        self.lb_Menu = tk.Label(self.frm_BarraLateral)
+
+        # frm_Home
+      
         self.frm_Home = tk.Frame(self.frm_Conteudo)
+        self.lb_HomeTitulo = tk.Label(self.frm_Home)
+
+        #frm_Hospedes
+
         self.frm_Hospedes = tk.Frame(self.frm_Conteudo)
         self.frm_HospedesTitulo = tk.Frame(self.frm_Hospedes)
-        self.lb_HospedesTitulo = tk.Label(self.frm_HospedesTitulo)
-        self.btn_NovoHospede = tk.Button(self.frm_HospedesTitulo)
         self.frm_BuscarHospede = tk.Frame(self.frm_Hospedes)
-        self.lb_BuscarHospede = tk.Label(self.frm_BuscarHospede)
-        self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
-        self.btn_BuscarHospede = tk.Button(self.frm_BuscarHospede)
         self.frm_HospedesBotoes = tk.Frame(self.frm_Hospedes)
+        self.lb_HospedesTitulo = tk.Label(self.frm_HospedesTitulo)
+        self.lb_BuscarHospede = tk.Label(self.frm_BuscarHospede)
+        self.btn_BuscarHospede = tk.Button(self.frm_BuscarHospede)
         self.btn_EditarHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ExcluirHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_AbrirHospede = tk.Button(self.frm_HospedesBotoes)
-        self.frm_Funcionarios = tk.Frame(self.frm_Conteudo)
-        self.frm_Relatorio = tk.Frame(self.frm_Conteudo)
-        self.frm_Config = tk.Frame(self.frm_Conteudo)
-        self.lb_Menu = tk.Label(self.frm_BarraLateral)
-        self.lb_HomeTitulo = tk.Label(self.frm_Home)
-        self.lb_BSTitulo = tk.Label(self.frm_BarraSuperio)
+        self.btn_NovoHospede = tk.Button(self.frm_HospedesTitulo)
+        self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
         self.flt_Hospede = FrameList(self.frm_Hospedes)
-     
+
+        #frm_Quarto
+
+        self.frm_Quarto = tk.Frame(self.frm_Conteudo)
+        self.frm_QuartoLateral = tk.Frame(self.frm_Quarto)
+        self.frm_QuartoBotoes = tk.Frame(self.frm_Quarto)
+        self.frm_QuartoBusca = tk.Frame(self.frm_QuartoLateral)
+        self.frm_QuartoId = tk.Frame(self.frm_QuartoLateral)
+        self.frm_QuartoNome = tk.Frame(self.frm_QuartoLateral)
+        self.frm_QuartoOcupacao = tk.Frame(self.frm_QuartoLateral)
+        self.frm_QuartoTipo = tk.Frame(self.frm_QuartoLateral)
+        self.frm_QuartoCap = tk.Frame(self.frm_QuartoLateral)
+        self.lb_QuartoBusca = tk.Label(self.frm_QuartoBusca)
+        self.lb_QuartoId = tk.Label(self.frm_QuartoId)
+        self.lb_QuartoNome = tk.Label(self.frm_QuartoNome)
+        self.lb_QuartoOcupacao = tk.Label(self.frm_QuartoOcupacao)
+        self.lb_QuartoTipo = tk.Label(self.frm_QuartoTipo)
+        self.lb_QuartoCap = tk.Label(self.frm_QuartoCap)
+        self.btn_QuartoSalvar = tk.Button(self.frm_QuartoBotoes)
+        self.btn_QuartoExcluir = tk.Button(self.frm_QuartoBotoes)
+        self.ent_QuartoBusca = tk.Entry(self.frm_QuartoBusca)
+        self.ent_QuartoId = tk.Entry(self.frm_QuartoId)
+        self.ent_QuartoNome = tk.Entry(self.frm_QuartoNome)
+        self.ent_QuartoCap = tk.Entry(self.frm_QuartoCap) 
+        self.cbb_QuartoOcupacao = ComboBox(self.frm_QuartoOcupacao)
+        self.cbb_QuartoTipo = ComboBox(self.frm_QuartoTipo)
+        
+
+        self.flt_Quarto = FrameList(self.frm_Quarto)
+
+        #frm_Funcionarios
+
+        self.frm_Funcionarios = tk.Frame(self.frm_Conteudo)
+
+        #frm_Relatorio
+
+        self.frm_Relatorio = tk.Frame(self.frm_Conteudo)
+
+        #frm_Config
+
+        self.frm_Config = tk.Frame(self.frm_Conteudo)
+        
         #
         # Componentes Multiplos - FrameConteudos
         #
 
-        self.frameConteudos = [self.frm_Conteudo, self.frm_Home, self.frm_Hospedes, self.frm_Funcionarios, self.frm_Relatorio, self.frm_Config]
+        self.frameConteudos = [self.frm_Conteudo, self.frm_Home, self.frm_Hospedes, self.frm_Quarto, self.frm_Funcionarios, self.frm_Relatorio, self.frm_Config]
         
         for frm in self.frameConteudos:
 
@@ -105,6 +149,79 @@ class Form():
         Style.FrameBord(self.frm_BarraSuperio)
 
         #
+        # frm_QuartoLateral
+        #
+
+        self.frm_QuartoLateral.config(width=400)
+        self.frm_QuartoLateral.pack(side="right", fill="y")
+        self.frm_QuartoLateral.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoLateral)
+
+        #
+        # frm_QuartoBotoes
+        #
+
+        self.frm_QuartoBotoes.config(height=60)
+        self.frm_QuartoBotoes.pack(side="bottom", fill="x")
+        self.frm_QuartoBotoes.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoBotoes)
+
+        #
+        # frm_QuartoBusca
+        #
+
+        self.frm_QuartoBusca.config(height=60)
+        self.frm_QuartoBusca.pack(side="top", fill="x", pady=(0, 20))
+        self.frm_QuartoBusca.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoBusca)
+
+        #
+        # frm_QuartoId
+        #
+
+        self.frm_QuartoId.config(height=80)
+        self.frm_QuartoId.pack(side="top", fill="x", expand=True)
+        self.frm_QuartoId.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoId)
+
+        
+        #
+        # frm_QuartoNome
+        #
+
+        self.frm_QuartoNome.config(height=80)
+        self.frm_QuartoNome.pack(side="top", fill="x", expand=True)
+        self.frm_QuartoNome.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoNome)
+
+        #
+        # frm_QuartoOcupacao
+        #
+
+        self.frm_QuartoOcupacao.config(height=80)
+        self.frm_QuartoOcupacao.pack(side="top", fill="x", expand=True)
+        self.frm_QuartoOcupacao.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoOcupacao)
+
+        #
+        # frm_QuartoTipo
+        #
+
+        self.frm_QuartoTipo.config(height=80)
+        self.frm_QuartoTipo.pack(side="top", fill="x", expand=True)
+        self.frm_QuartoTipo.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoTipo)
+
+        #
+        # frm_QuartoCap
+        #
+
+        self.frm_QuartoCap.config(height=80)
+        self.frm_QuartoCap.pack(side="top", fill="x", expand=True, pady=(0, 60))
+        self.frm_QuartoCap.pack_propagate(False)
+        Style.FrameBord(self.frm_QuartoCap)
+
+        #
         # pw_Panel
         #
 
@@ -155,6 +272,54 @@ class Form():
         self.lb_BuscarHospede.pack(side="left", padx=10)
         Style.LabeHide(self.lb_BuscarHospede)
 
+        #
+        # lb_QuartoBusca
+        #
+
+        self.lb_QuartoBusca.config(text="Pesquisa", font=TemaConfig.tema.fonte)
+        self.lb_QuartoBusca.pack(side="left", padx=10)
+        Style.LabeHide(self.lb_QuartoBusca)
+
+        #
+        # lb_QuartoId
+        #
+
+        self.lb_QuartoId.config(text="Quarto ID")
+        self.lb_QuartoId.pack(anchor="w", padx=10, pady=(15, 0))
+        Style.LabeHide(self.lb_QuartoId)
+
+        #
+        # lb_QuartoNome
+        #
+
+        self.lb_QuartoNome.config(text="Quarto")
+        self.lb_QuartoNome.pack(anchor="w", padx=10, pady=(15, 0))
+        Style.LabeHide(self.lb_QuartoNome)
+
+        #
+        # lb_QuartoOcupacao
+        #
+
+        self.lb_QuartoOcupacao.config(text="Ocupação")
+        self.lb_QuartoOcupacao.pack(anchor="w", padx=10, pady=(15, 0))
+        Style.LabeHide(self.lb_QuartoOcupacao)
+
+        #
+        # lb_QuartoTipo
+        #
+
+        self.lb_QuartoTipo.config(text="Tipo")
+        self.lb_QuartoTipo.pack(anchor="w", padx=10, pady=(15, 0))
+        Style.LabeHide(self.lb_QuartoTipo)
+
+        #
+        # lb_QuartoCap
+        #
+
+        self.lb_QuartoCap.config(text="Capacidade")
+        self.lb_QuartoCap.pack(anchor="w", padx=10, pady=(15, 0))
+        Style.LabeHide(self.lb_QuartoCap)
+
         # 
         # ent_BuscarHospede
         #
@@ -162,6 +327,56 @@ class Form():
         self.ent_BuscarHospede.pack(side="left", padx=10)
         self.ent_BuscarHospede.insert(0, "Buscar:")
         Style.EntryBord(self.ent_BuscarHospede)
+
+        #
+        # ent_QuartoBusca
+        #
+
+        self.ent_QuartoBusca.pack(side="left", padx=10)
+        self.ent_QuartoBusca.insert(0, "Buscar:")
+        self.ent_QuartoBusca.config(width=25)
+        Style.EntryBord(self.ent_QuartoBusca)
+
+        #
+        # ent_QuartoId 
+        #
+
+        self.ent_QuartoId.pack(side="left", padx=10)
+        self.ent_QuartoId.insert(0, "ID:")
+        self.ent_QuartoId.config(width=25)
+        Style.EntryBord(self.ent_QuartoId)
+
+        #
+        # ent_QuartoNome  
+        #
+
+        self.ent_QuartoNome.pack(side="left", padx=10)
+        self.ent_QuartoNome.insert(0, "Nome:")
+        self.ent_QuartoNome.config(width=25)
+        Style.EntryBord(self.ent_QuartoNome)
+
+        #
+        # ent_QuartoCap 
+        #
+
+        self.ent_QuartoCap.pack(side="left", padx=10)
+        self.ent_QuartoCap.insert(0, "Capacidade:")
+        self.ent_QuartoCap.config(width=25)
+        Style.EntryBord(self.ent_QuartoCap)
+        
+        #
+        # cbb_QuartoOcupacao
+        #
+
+        self.cbb_QuartoOcupacao.pack(side="left", padx=10)
+        self.cbb_QuartoOcupacao.AddItem({"Tipo 1": "Tipo 2"})
+        
+        #
+        # cbb_QuartoTipo
+        #
+       
+        self.cbb_QuartoTipo.pack(side="left", padx=10)
+        self.cbb_QuartoTipo.AddItem({"Tipo 1": "Tipo 2"})
 
         #
         # btn_NovoHospede
@@ -208,6 +423,23 @@ class Form():
         Style.ButtonHide(self.btn_AbrirHospede)
 
         #
+        # btn_QuartoSalvar
+        #
+
+        self.btn_QuartoSalvar.config(text="Salvar")
+        self.btn_QuartoSalvar.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_QuartoSalvar)
+
+
+        #
+        # btn_QuartoExcluir
+        #
+
+        self.btn_QuartoExcluir.config(text="Excluir")
+        self.btn_QuartoExcluir.pack(side="left", padx=10)
+        Style.ButtonHide(self.btn_QuartoExcluir)
+
+        #
         # componentes multiplos - buttonsMenu
         #
 
@@ -215,6 +447,7 @@ class Form():
             
             ("Home", self.frm_Home),
             ("Hóspedes", self.frm_Hospedes),
+            ("Quartos", self.frm_Quarto),
             ("Funcionários", self.frm_Funcionarios),
             ("Relatório", self.frm_Relatorio),
             ("Configurações", self.frm_Config),
@@ -230,6 +463,11 @@ class Form():
         self.flt_Hospede.config(width=600)
         self.flt_Hospede.pack(fill="both", expand=True)
         Style.FrameListZebrado(self.flt_Hospede)
+
+        self.flt_Quarto.config(bg=TemaConfig.tema.segundario)
+        self.flt_Quarto.config(width=600)
+        self.flt_Quarto.pack(fill="both", expand=True)
+        Style.FrameListZebrado(self.flt_Quarto)
 
     def CarregarItem_flt_Hospede(self, listItem):
 

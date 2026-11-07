@@ -53,7 +53,7 @@ class F_principal(Form):
 
     def MostraFrame_Click(self,frame):
 
-        for i in [self.frm_Home,self.frm_Hospedes,self.frm_Funcionarios, self.frm_Relatorio, self.frm_Config]:
+        for i in self.frameConteudos:
 
             i.pack_forget()
         
