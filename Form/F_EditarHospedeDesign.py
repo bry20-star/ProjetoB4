@@ -107,7 +107,7 @@ class Form():
         #
         # ent_IdHospede
         #
-
+        
         self.ent_IdHospede.pack(anchor="w")
         Style.EntryBord(self.ent_IdHospede) 
 
