@@ -1,5 +1,10 @@
+
+#------------ Tema ---------------------------------------------------------------------------------------------------/
+
 class Tema:
- 
+
+    #----------- Dark ---------------------------------------------------------/
+
     class Dark:
 
         # cores
@@ -10,24 +15,54 @@ class Tema:
         destaque = "#0E639C"
         botao = "#3A3D42"
 
-        clicado = "#1F4E79"     # Um azul escuro fechado e sofisticado que contrasta muito bem com o primário
-        borda = "#3E4147"       # Um cinza médio para divisórias sutis elegantes
+        click = "#1F4E79"     
+        borda = "#3E4147"       
 
         fonte = ("Segoe UI",11)
         fonteTitulo = ("Segoe UI", 22, "bold")
+
+    #------------------------------------------------------\
+
+    #------------ White --------------------------------------------------/
 
     class White:
 
-        # Tons Claros (Light Mode)
-        primario = "#F7F7F8"    # Fundo principal (Branco puro)
-        segundario = "#FFFFFF"    # Fundo secundário para o zebrado (Cinza muito claro)
-        texto = "#202123"        # Texto (Cinza escuro/quase preto para alto contraste)
-        hover = "#D8DBDF"        # Cor ao passar o rato por cima (Cinza claro suave)
-        destaque = "#0E639C"     # Mantém o Azul institucional (funciona muito bem no claro)
+        primario = "#F7F7F8"    
+        segundario = "#FFFFFF"    
+        texto = "#202123"        
+        hover = "#D8DBDF"        
+        destaque = "#0E639C"     
         botao = "#E4E6E9"       
 
-        clicado = "#D2E5F5"     # Um azul claro pastel e suave, ideal para destacar linhas no modo claro
-        borda = "#E2E4E7"       # Um cinza muito suave para linhas divisórias limpas
+        click = "#D2E5F5"     
+        borda = "#E2E4E7"       
 
         fonte = ("Segoe UI",11)
         fonteTitulo = ("Segoe UI", 22, "bold")
+
+    #------------------------------------------------------\
+
+#---------------------------------------------------------------------\
+
+#--------------- Config ----------------------------------------------------------------/
+
+class Config():
+ 
+    tema = Tema.Dark
+
+    #--------- SetTema ----------------------------------/
+
+    @staticmethod
+    def SetTema(tema):
+
+        if tema == "dark":
+
+            Config.tema = Tema.Dark
+        
+        elif tema == "white": 
+
+            Config.tema = Tema.White
+
+    #---------------------------------------\
+
+#------------------------------------------------------------------------\

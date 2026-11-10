@@ -1,32 +1,44 @@
+
+# importações
+
 import tkinter as tk
-from Styles.Style import TemaConfig
 from Styles.Style import Style
-from Componentes.ComponentesPersonalizados import ComboBox 
+from Comps.CustomComps import ComboBox 
+
+#----------------------------- Form --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------/
 
 class Form:
 
     def InicializarComponentes(self,master):
+
+        # Janela
 
         self.F_Hosp = tk.Toplevel()
 
         self.frm_Conteudo = tk.Frame(self.F_Hosp)
         self.frm_NameHospede = tk.Frame(self.frm_Conteudo)
         self.frm_TipoCobranca = tk.Frame(self.frm_Conteudo)
-        self.frm_IdQuarto = tk.Frame(self.frm_Conteudo)
+        self.frm_Quarto = tk.Frame(self.frm_Conteudo)
+
         self.lb_NameHospede = tk.Label(self.frm_NameHospede)
         self.lb_TipoCobranca = tk.Label(self.frm_TipoCobranca)
-        self.lb_IdQuarto = tk.Label(self.frm_IdQuarto)
+        self.lb_Quarto = tk.Label(self.frm_Quarto)
+
         self.ent_NameHospede = tk.Entry(self.frm_NameHospede)
-        self.ent_IdQuarto = tk.Entry(self.frm_IdQuarto)
+
+        self.cbb_Quarto = ComboBox(self.frm_Quarto)
         self.cbb_TipoCobranca = ComboBox(self.frm_TipoCobranca)
+
         self.btn_Confirmar = tk.Button(self.frm_Conteudo)
                 
+    #----------------------- Componentes Janela --------------------------------------/
+
         #
         # frm_Conteudo
         #
 
         self.frm_Conteudo.pack(fill="both", expand=True)
-        Style.FrameBord(self.frm_Conteudo) 
+        Style.frame.Bord(self.frm_Conteudo) 
 
         #
         # frm_NameHospede
@@ -35,7 +47,7 @@ class Form:
         self.frm_NameHospede.pack(fill="x", side="top")
         self.frm_NameHospede.config(height=90)
         self.frm_NameHospede.pack_propagate(False)
-        Style.FrameBord(self.frm_NameHospede)
+        Style.frame.Bord(self.frm_NameHospede)
 
         #
         # frm_TipoCobranca
@@ -44,16 +56,16 @@ class Form:
         self.frm_TipoCobranca.pack(fill="x", side="top")
         self.frm_TipoCobranca.config(height=90)
         self.frm_TipoCobranca.pack_propagate(False)
-        Style.FrameBord(self.frm_TipoCobranca)
+        Style.frame.Bord(self.frm_TipoCobranca)
 
         #
         # frm_IdQuarto
         #
 
-        self.frm_IdQuarto.pack(fill="x", side="top")
-        self.frm_IdQuarto.config(height=90)
-        self.frm_IdQuarto.pack_propagate(False)
-        Style.FrameBord(self.frm_IdQuarto)
+        self.frm_Quarto.pack(fill="x", side="top")
+        self.frm_Quarto.config(height=90)
+        self.frm_Quarto.pack_propagate(False)
+        Style.frame.Bord(self.frm_Quarto)
 
         #
         # lb_NameHospede 
@@ -61,7 +73,7 @@ class Form:
 
         self.lb_NameHospede.pack(anchor="w")
         self.lb_NameHospede.config(height=2, text="Nome do Hóspede")
-        Style.LabeHide(self.lb_NameHospede)
+        Style.label.Hide(self.lb_NameHospede)
 
         #
         # lb_TipoCobranca
@@ -69,30 +81,30 @@ class Form:
 
         self.lb_TipoCobranca.pack(anchor="w")
         self.lb_TipoCobranca.config(height=2, text="Tipo de Cobrança")
-        Style.LabeHide(self.lb_TipoCobranca)
+        Style.label.Hide(self.lb_TipoCobranca)
 
         #
-        # lb_IdQuarto 
+        # lb_Quarto 
         #
 
-        self.lb_IdQuarto.pack(anchor="w")
-        self.lb_IdQuarto.config(height=2, text="ID do Quarto")
-        Style.LabeHide(self.lb_IdQuarto)
+        self.lb_Quarto.pack(anchor="w")
+        self.lb_Quarto.config(height=2, text="Quarto")
+        Style.label.Hide(self.lb_Quarto)
 
         #
         # ent_NameHospede
         #
-
+        self.ent_NameHospede_text = "ex: Hóspede Nome"
+        self.ent_NameHospede.insert(0, self.ent_NameHospede_text)
         self.ent_NameHospede.pack(anchor="w")
         self.ent_NameHospede.config(width=40)
-        Style.EntryBord(self.ent_NameHospede)
+        Style.entry.Bord(self.ent_NameHospede)
         
         #
-        # ent_IdQuarto 
+        # cbb_Quarto 
         #
 
-        self.ent_IdQuarto.pack(anchor="w")
-        Style.EntryBord(self.ent_IdQuarto) 
+        self.cbb_Quarto.pack(anchor="w")
 
         #
         # cbb_TipoCobranca
@@ -108,7 +120,7 @@ class Form:
         self.btn_Confirmar.pack(side="bottom", expand=True, fill="both")
         self.btn_Confirmar.config(text="Confirmar")
         self.btn_Confirmar.config(command=lambda: self.Click_btn_Confirmar())
-        Style.ButtonHide(self.btn_Confirmar)
+        Style.button.Hide(self.btn_Confirmar)
 
         #
         # F_NovoHospede
@@ -123,3 +135,7 @@ class Form:
         self.F_Hosp.resizable(False, False)
         self.F_Hosp.transient(master)
         self.F_Hosp.grab_set()
+
+    #-------------------------------------------------------------------------\
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------\
