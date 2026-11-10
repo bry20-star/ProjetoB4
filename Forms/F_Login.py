@@ -3,15 +3,14 @@
 
 import tkinter as tk
 from tkinter import messagebox
-from Form.F_LoginDesign import Form
+from Forms.F_LoginDesign import Form
 from Banco.Banco import Banco
-from Models.Class import Tabelas as tb
-from Models.Class import Usuario
+from Modelos.Tabelas import Tabelas as tb
 from Styles.Style import Style
 
-class F_Login(Form):
+#------------------------------------------------------- F_Login ---------------------------------------------------------------------------------------------------------------------------------------------------------/
 
-	
+class F_Login(Form):
 
 	def __init__(self):
 
@@ -91,8 +90,6 @@ class F_Login(Form):
 			self.ent_Conta.focus_set()
 			return
 
-		Usuario.nivel = user[0][tb.Usuario.n_Nivel]
-		Usuario.nome = user[0][tb.Usuario.t_Nome]
-		Usuario.conta = user[0][tb.Usuario.t_Conta]
-
 		self.F_Login.destroy()
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------\
