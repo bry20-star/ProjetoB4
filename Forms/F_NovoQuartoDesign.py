@@ -60,7 +60,6 @@ class Form():
         self.frm_Conteudo.pack(fill="both", expand=True)
         Style.frame.Bord(self.frm_Conteudo)
 
-
         #
         # Componentes Multiplos Frames
         #

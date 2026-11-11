@@ -206,7 +206,7 @@ class F_principal(Form):
 
                 item.pack(fill="x", expand=True)
 
-        buscar = self.ent_QuartoBusca.get().strip().lower()
+        buscar = self.ent_QuartoBusca.get().replace(" ","").lower()
 
         for item in self.flt_Quarto.listLinhas:
 
@@ -216,7 +216,7 @@ class F_principal(Form):
 
             item.pack(fill="x", expand=True)
 
-            if not buscar in str(item.dados[tb.Quarto.t_Nome]).lower():
+            if not buscar in str(item.dados[tb.Quarto.t_Nome]).replace(" ","").lower():
 
                 item.pack_forget()
 
