@@ -7,6 +7,7 @@ from Comps.CustomComps import FrameList, ComboBox, NumericUpDown
 from Forms.F_NovoHospede import F_NovoHospede
 from Forms.F_EditarHospede import F_EditarHospede
 from Forms.F_NovoQuarto import F_NovoQuarto
+from Forms.F_QuartoReserva import F_QuartoReserva
 from Styles.Style import Style
 from Styles.Tema import Config
 
@@ -515,6 +516,7 @@ class Form():
 
         self.btn_QuartoReserva.config(text="Reserva")
         self.btn_QuartoReserva.pack(side="left", padx=10)
+        self.btn_QuartoReserva.config(command= lambda: self.FormAbrir_Click(F_QuartoReserva))
         Style.button.Hide(self.btn_QuartoReserva)
 
         #
