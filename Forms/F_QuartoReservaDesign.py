@@ -146,30 +146,6 @@ class Form():
         self.btn_Confirmar.pack(fill="both", expand=True)
         Style.button.Hide(self.btn_Confirmar)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         #
         # F_Reserva
         #
