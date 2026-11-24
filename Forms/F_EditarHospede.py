@@ -30,7 +30,7 @@ class F_EditarHospede(Form):
 
 		self.ent_NameHospede.delete(0, tk.END)
 		self.ent_NameHospede.insert(0, self.linhaAtual.dados[tb.Hospede.t_Nome])
-		Style.entry.Bord(self.ent_NameHospede)
+		Style.Entry.Bord(self.ent_NameHospede)
 
 		# combobox - imcorporando
 

@@ -3,9 +3,9 @@
 
 import tkinter as tk
 from typing import TYPE_CHECKING
-from Comps.CustomComps import ComboBox, NumericUpDown
 from Styles.Style import Style
 from Modelos.Tabelas import Tabelas as tb
+from CustomComps.CustomComps import CustomComps as cc
 
 if TYPE_CHECKING:
 
@@ -40,12 +40,12 @@ class Form():
 
         self.ent_NomeQuarto = tk.Entry(self.frm_NomeQuarto)
         self.ent_NomeQuarto_text = "Ex: Quarto102"
-        self.nud_CapQuarto = NumericUpDown(self.frm_CapQuarto)
+        self.nud_CapQuarto = cc.NumericUpDown(self.frm_CapQuarto)
 
         # ComboBoxs
 
-        self.cbb_StatusQuarto = ComboBox(self.frm_StatusQuarto)
-        self.cbb_TipoQuarto = ComboBox(self.frm_TipoQuarto)
+        self.cbb_StatusQuarto = cc.ComboBox(self.frm_StatusQuarto)
+        self.cbb_TipoQuarto = cc.ComboBox(self.frm_TipoQuarto)
 
         # Buttons
 
@@ -58,7 +58,7 @@ class Form():
         #   
 
         self.frm_Conteudo.pack(fill="both", expand=True)
-        Style.frame.Bord(self.frm_Conteudo)
+        Style.Frame.Bord(self.frm_Conteudo)
 
         #
         # Componentes Multiplos Frames
@@ -78,7 +78,7 @@ class Form():
             frm.config(height=80)
             frm.pack(side="top", fill="x")
             frm.pack_propagate(False)
-            Style.frame.Bord(frm)
+            Style.Frame.Bord(frm)
 
         #
         # Compoenetes Multiplos Labels
@@ -97,7 +97,7 @@ class Form():
 
             lb.config(text=txt)
             lb.pack(anchor="w", pady=(10, 1), padx=(4, 0))
-            Style.label.Hide(lb)
+            Style.Label.Hide(lb)
 
         #
         # Componentes Multiplos
@@ -116,16 +116,16 @@ class Form():
             if isinstance(comp, tk.Entry):
 
                 comp.insert(0, txt)
-                Style.entry.Bord(comp)
+                Style.Entry.Bord(comp)
 
-            if isinstance(comp, ComboBox):
+            if isinstance(comp, cc.ComboBox):
 
                 comp.ent_Box.config(state="readonly")
 
-            if isinstance(comp, NumericUpDown):
+            if isinstance(comp, cc.NumericUpDown):
 
                 comp.SetValueMin(1)
-                Style.numericUpDown.Flat(comp)
+                Style.NumericUpDown.Flat(comp)
 
             comp.pack(anchor="w", padx=(4, 0))
 
@@ -138,7 +138,7 @@ class Form():
         btn.config(text="Confirmar")
         btn.config(command=lambda: self.Click_btn_Confirmar())
         btn.pack(side="bottom", fill="both", expand=True)
-        Style.button.Hide(btn)
+        Style.Button.Hide(btn)
 
         #
         # F_NovoQuarto

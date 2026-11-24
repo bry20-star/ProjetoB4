@@ -36,6 +36,7 @@ class Tabelas:
         t_Nome = "t_NameHospede"
         t_TipoCobranca = "t_TipoCobranca"
         n_IdQuarto = "n_IdQuarto"
+        n_IdReserva = "n_IdReserva"
 
         #----------------- Valores -----------------/
 
@@ -80,6 +81,7 @@ class Tabelas:
         t_Estado = "t_EstadoQuarto"
         t_Tipo = "t_TipoQuarto"
         n_Cap = "n_CapQuarto"
+        n_QtdeHosp = "n_QtdeHospede"
 
         #----------- valores --------------------/
 
@@ -132,5 +134,55 @@ class Tabelas:
         #----------------------------\
 
     #---------------------------------------------------\
+
+    #----------------------- Reservas ----------------------------------------------/
+
+    class Reservas:
+        
+        # tabela
+
+        tabela = "tb_Reservas"
+
+        # campos
+
+        n_Id = "n_IdReserva"
+        n_IdHosp = "n_IdHospedeResponsavel"
+        n_IdQuarto = "n_IdQuarto"
+        t_DataEntrda = "t_DataEntrada"
+        t_DataSaida = "t_DataSaida"
+        t_Status = "t_Status"
+
+        # status
+
+        inativo = {
+            
+            "view":"Inativo", 
+            "value":"I"
+            
+        }
+
+        ativo = {
+            
+            "view":"Ativo",
+            "value":"A"
+            
+        }
+
+        bloqueado = {
+            
+            "view":"Bloqueado", 
+            "value":"B"
+            
+        }
+
+        status = (
+            
+            inativo,
+            ativo,
+            bloqueado
+
+        )
+
+    #-----------------------------------------------------------------------\
 
 #-------------------------------------------------------------------------------------\

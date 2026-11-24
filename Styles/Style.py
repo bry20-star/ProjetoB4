@@ -1,27 +1,27 @@
 
 # importações
 
-from Styles.Comps.ButtonStyle import ButtonStyle
-from Styles.Comps.FrameStyle import FrameStyle
-from Styles.Comps.LabelStyle import LabelStyle
-from Styles.Comps.EntryStyle import EntryStyle
-from Styles.Comps.NumericUpDownStyle import NumericUpDownStyle
-from Styles.Comps.FrameListStyle import FrameListStyle
+from Styles.Comps.StyleButton import StyleButton
+from Styles.Comps.StyleFrame import StyleFrame
+from Styles.Comps.StyleLabel import StyleLabel
+from Styles.Comps.StyleEntry import StyleEntry
+from Styles.Comps.StyleNumericUpDown import StyleNumericUpDown
+from Styles.Comps.StyleFrameList import StyleFrameList
 
 #--------------- Style --------------------------------------------/
 
 class Style():
 
-    button = ButtonStyle
+    class Button (StyleButton): pass
 
-    frame = FrameStyle
+    class Frame (StyleFrame): pass
 
-    label = LabelStyle
+    class Label (StyleLabel): pass
 
-    entry = EntryStyle
+    class Entry (StyleEntry): pass
 
-    numericUpDown = NumericUpDownStyle
+    class NumericUpDown (StyleNumericUpDown): pass
 
-    frameList = FrameListStyle
+    class FrameList (StyleFrameList): pass
 
 #----------------------------------------------\

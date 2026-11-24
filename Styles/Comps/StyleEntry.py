@@ -7,7 +7,7 @@ from Styles.StyleManager import StyleManager as sm
 
 #--------------------- EntryStyle -------------------------------------------------------------------------------------------------------------------------/
 
-class EntryStyle():
+class StyleEntry():
 
     #------------------ Bord ---------------------------------------------------------------------------------------------------/
 
@@ -16,7 +16,7 @@ class EntryStyle():
 
         tema = Config.tema
         
-        sm.Registra(comp=ent, met=EntryStyle.Bord)
+        sm.Registra(comp=ent, met=StyleEntry.Bord)
 
         ent.config(
             
@@ -32,10 +32,10 @@ class EntryStyle():
 
         textInicial = ent.get()
 
-        ent.bind("<Enter>", lambda event: EntryStyle.__Enter_Bord(textInicial,  event))
-        ent.bind("<FocusIn>", lambda event: EntryStyle.__Enter_Bord(textInicial, event))
-        ent.bind("<Leave>", lambda event: EntryStyle.__Leave_Bord(textInicial, event))
-        ent.bind("<FocusOut>", lambda event: EntryStyle.__Leave_Bord(textInicial, event))
+        ent.bind("<Enter>", lambda event: StyleEntry.__Enter_Bord(textInicial,  event))
+        ent.bind("<FocusIn>", lambda event: StyleEntry.__Enter_Bord(textInicial, event))
+        ent.bind("<Leave>", lambda event: StyleEntry.__Leave_Bord(textInicial, event))
+        ent.bind("<FocusOut>", lambda event: StyleEntry.__Leave_Bord(textInicial, event))
 
     def __Enter_Bord(textInicial: str, event):
 

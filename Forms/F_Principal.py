@@ -14,7 +14,7 @@ from Modelos.Tabelas import Tabelas as tb
 class F_principal(Form):
 
     def __init__(self):
-
+       
         F_Login()
 
         self.InicializarComponentes()
@@ -81,7 +81,7 @@ class F_principal(Form):
 
             FROM
                 
-                {tb.Quarto.tabela}
+                {tb.Quarto.tabela} 
         
         """)
 
@@ -90,13 +90,12 @@ class F_principal(Form):
             self.flt_Quarto.AddItem(dado[tb.Quarto.n_Id], dado[tb.Quarto.t_Nome])
             self.flt_Quarto.listLinhas[i].dados = dado
 
-
         self.flt_Quarto.SetColuna(colunaId=0, peso=1)
         self.flt_Quarto.SetColuna(colunaId=1, peso=3)
 
         # combobox - imcorporando 
 
-        self.cbb_QuartoEstado.AddItem({
+        self.cbb_QuartoStatus.AddItem({
         
             tb.Quarto.disponivel["view"] : tb.Quarto.disponivel["value"], 
             tb.Quarto.oculpado["view"] : tb.Quarto.oculpado["value"], 
@@ -111,6 +110,42 @@ class F_principal(Form):
             tb.Quarto.suite["view"] : tb.Quarto.suite["value"]
             
         })
+
+        #-------------------- frame Reservas ---------------------------------------------/
+
+        # imcorporando frame list
+
+        self.flt_Reserva.AddColuna("ID", "Quarto", "Entrda", "Saída", "Hóspede")
+
+        dados = Banco.DQL(f"""
+        
+            SELECT *
+            
+            FROM
+
+                { tb.Reservas.tabela } as 'tbr'
+
+            INNER JOIN
+
+                { tb.Hospede.tabela } as 'tbh' ON tbr.{ tb.Reservas.n_IdHosp } = tbh.{ tb.Hospede.n_Id },
+                { tb.Quarto.tabela } as 'tbq' ON tbr.{ tb.Reservas.n_IdQuarto } = tbq.{ tb.Quarto.n_Id }
+
+        """)
+
+
+        for dado in dados:
+
+            self.flt_Reserva.AddItem(
+                
+                dado[ tb.Reservas.n_Id ],
+                dado[ tb.Quarto.t_Nome ],
+                dado[ tb.Reservas.t_DataEntrda ],
+                dado[ tb.Reservas.t_DataSaida ],
+                dado[ tb.Hospede.t_Nome ]
+
+            ).dados = dado
+
+        #---------------------------------------------------------------------\
 
         self.fp.mainloop()
 
@@ -140,6 +175,15 @@ class F_principal(Form):
 
     #--------- Frame Hospede ---------------------------------------------------------------------------------------------------------------------------/
 
+    def btn_EditarHospede_Click(self):
+
+        if len(self.flt_Hospede.listSelectLinhas) > 1:
+
+            messagebox.showerror("Error", "Não pode editar com mais de um hóspede selecionador")
+            return
+
+        self.FormAbrir_Click(F_EditarHospede)
+
     def btn_ExcluirHospede_Click(self):
 
         if not self.flt_Hospede.linhaAtual: 
@@ -149,9 +193,17 @@ class F_principal(Form):
 
         if (not messagebox.askyesno("Excluir?" ,"Deseja Excluir Hóspede?")): return
 
-        Banco.DeleteDado(int(self.flt_Hospede.linhaAtual.list_cells[0].cget("text")), tb.Hospede.tabela, tb.Hospede.n_Id )
+        for hosp in list(self.flt_Hospede.listSelectLinhas):
 
-        self.flt_Hospede.RemoveItem(self.flt_Hospede.linhaAtual)
+            Banco.DeleteDado(
+            
+                dadoId = hosp.dados[tb.Hospede.n_Id],
+                tabela = tb.Hospede.tabela,
+                idKey = tb.Hospede.n_Id
+         
+            )
+
+            self.flt_Hospede.RemoveItem(hosp)
         
     def btn_BuscarHospede_Click(self):
 
@@ -193,8 +245,41 @@ class F_principal(Form):
         self.ent_QuartoNome.delete(0, tk.END)
         self.ent_QuartoNome.insert(0, self.flt_Quarto.linhaAtual.list_cells[1].cget("text"))
 
-        self.cbb_QuartoEstado.SetItem(item.dados["estado"])
+        self.cbb_QuartoStatus.SetItem(item.dados["estado"])
         self.cbb_QuartoTipo.SetItem(item.dados["tipo"])
+
+        quarto = Banco.DQL(f"""
+        
+            SELECT *,
+
+                count(tbh.{tb.Hospede.n_Id}) as qtde
+
+            FROM
+
+                { tb.Quarto.tabela } as tbq
+
+            INNER JOIN
+           
+                { tb.Hospede.tabela } as tbh ON tbh.{ tb.Hospede.n_IdQuarto } = tbq.{tb.Quarto.n_Id}
+
+            WHERE
+
+                tbh.{tb.Hospede.n_IdQuarto} = {item.dados[ tb.Quarto.n_Id ]}
+
+        """)
+
+        if quarto[0]["qtde"] > item.dados[tb.Quarto.n_Cap]:
+
+            messagebox.showerror("Error", f"Esse quarto tem hóspedes além da capacidade - {quarto[0]['qtde']}")
+            return
+
+        if  quarto[0]["qtde"] == 0:
+
+            self.nud_QuartoCap.SetValueMin(1)
+
+        else:
+
+            self.nud_QuartoCap.SetValueMin(quarto[0]["qtde"])
 
         self.nud_QuartoCap.SetValue(item.dados[tb.Quarto.n_Cap])
 
@@ -222,33 +307,32 @@ class F_principal(Form):
 
     def Click_btn_QuartoExcluir(self):
 
-        item = self.flt_Quarto.linhaAtual
-
-        if not item:
+        if not self.itemAtualQuarto:
 
             messagebox.showerror("Error", "Nenhum Quarto selecionador")
             return
 
         for hosp in self.flt_Hospede.listLinhas:
 
-            if hosp.dados[tb.Quarto.n_Id] == item.dados[tb.Quarto.n_Id]:
+            for quarto in self.flt_Quarto.listSelectLinhas:
+
+                if hosp.dados[tb.Quarto.n_Id] == quarto.dados[tb.Quarto.n_Id]:
                 
-                messagebox.showerror(f"não foi possivel excluir o quarto", f"Existem hóspedes hospedados nesse quarto")
-                return
+                    messagebox.showerror(f"não foi possivel excluir o quarto", f"Existem hóspedes hospedados nesse quarto ({quarto.dados[tb.Quarto.t_Nome]})")
+                    return
 
-        if not messagebox.askyesno("Excluir Quarto", "Deseja excluir esse quarto?"): return
+        if not messagebox.askyesno("Excluir Quarto", "Deseja excluir esses quartos?"): return
 
-        Banco.DeleteDado(
+        for quarto in list(self.flt_Quarto.listSelectLinhas):
+
+            Banco.DeleteDado(
         
-            tabela=tb.Quarto.tabela,
-            idKey=tb.Quarto.n_Id,
-            dadoId=item.dados[tb.Quarto.n_Id]
-        )
+                tabela=tb.Quarto.tabela,
+                idKey=tb.Quarto.n_Id,
+                dadoId=quarto.dados[tb.Quarto.n_Id]
+            )
 
-        self.flt_Quarto.RemoveItem(
-
-            item=item
-        )
+            self.flt_Quarto.RemoveItem(quarto)
 
         self.itemAtualQuarto = None
 
@@ -266,6 +350,11 @@ class F_principal(Form):
         if not self.itemAtualQuarto:
 
             messagebox.showerror("Error", "Nenhum Quarto Selecionador")
+            return
+
+        if len(self.flt_Quarto.listSelectLinhas) > 1:
+
+            messagebox.showerror("Error", "não pode salvar com mais de um quarto selecionador")
             return
 
         # campo nome quarto
@@ -302,6 +391,16 @@ class F_principal(Form):
                 ent.focus_set()
                 return
 
+        # campo capacidade
+
+        nud = self.nud_QuartoCap
+
+        if not nud.ent_box.get():
+
+            messagebox.showerror("Error", f"Campo {self.lb_QuartoCap.cget('text')} não pode está vazio")
+            nud.focus_set()
+            return
+
         # salvando dados
 
         Banco.SetDado(
@@ -313,7 +412,7 @@ class F_principal(Form):
             dados={
                 
                 tb.Quarto.t_Nome:  self.ent_QuartoNome.get().strip(),
-                tb.Quarto.t_Estado: self.cbb_QuartoEstado.itemAtual.value,
+                tb.Quarto.t_Estado: self.cbb_QuartoStatus.itemAtual.value,
                 tb.Quarto.t_Tipo: self.cbb_QuartoTipo.itemAtual.value,
                 tb.Quarto.n_Cap: self.nud_QuartoCap._value
             }
@@ -358,8 +457,35 @@ class F_principal(Form):
 
                 item.list_cells[3].config(text=self.ent_QuartoNome.get().strip())
 
-        messagebox.showinfo("Salvar", "Quarto salvor com sucesso")
+        messagebox.showinfo("Salvor", "Quarto salvor com sucesso")
 
     #----------------------------------------------------------------------------------------\
+
+    #--------------------- frame Reservas --------------------------------------------------------------------------------------------------------------------------/
+
+    def Click_btn_ReservaExcluir(self):
+
+        # vericações
+
+        if not self.flt_Reserva.linhaAtual:
+
+            messagebox.showerror("Error", "Nenhuma Reserva selecionada")
+            return
+
+        if not messagebox.askyesno("Exluir?", "Deseja Excluir essa Reserva?"): return
+
+        # deletando
+
+        Banco.DeleteDado(
+            
+            tabela= tb.Reservas.tabela,
+            idKey= tb.Reservas.n_Id,
+            dadoId= self.flt_Reserva.linhaAtual.dados[ tb.Reservas.n_Id ]
+            
+            )
+        
+        self.flt_Reserva.RemoveItem(self.flt_Reserva.linhaAtual)
+
+    #------------------------------------------------------------------------------------------------------------------------------\
 
 #-----------------------------------------------------------------------------------------------------------\

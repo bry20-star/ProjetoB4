@@ -7,7 +7,7 @@ from Styles.StyleManager import StyleManager as sm
 
 #------------------- ButtonStyle ------------------------------------------------------------------------------------------------------------------------------------------------------------/
 
-class ButtonStyle():
+class StyleButton():
 
     #------------- Flat -------------------------------------------------------------------------------------------------------------------------/
 
@@ -16,7 +16,7 @@ class ButtonStyle():
 
         tema = Config.tema
 
-        sm.Registra(comp=comp, met=ButtonStyle.Flat)
+        sm.Registra(comp=comp, met=StyleButton.Flat)
 
         comp.config(
             
@@ -47,7 +47,7 @@ class ButtonStyle():
         
         tema = Config.tema
 
-        sm.Registra(comp=comp, met=ButtonStyle.Hide)
+        sm.Registra(comp=comp, met=StyleButton.Hide)
 
         comp.config(
             

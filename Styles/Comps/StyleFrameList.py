@@ -2,24 +2,24 @@
 # importações
 
 from Styles.Tema import Config
-from Comps.CustomComps import FrameList
+from CustomComps.CustomComps import CustomComps as cc
 from Styles.StyleManager import StyleManager as sm
 
 #----------------------- FrameListStyle -------------------------------------------------------------------------------------------------/
 
-class FrameListStyle():
+class StyleFrameList():
     
     tema = Config.tema
 
     #-------------- Zebrado -------------------------------------------------------------------------------------/
 
     @staticmethod
-    def Zebrado(flt: FrameList):
+    def Zebrado(flt: cc.FrameList):
 
-        FrameList.tema = Config.tema
+        flt.tema = Config.tema
         tema = Config.tema
 
-        sm.Registra(comp=flt, met=FrameListStyle.Zebrado)
+        sm.Registra(comp=flt, met=StyleFrameList.Zebrado)
 
         flt.config(bg=tema.primario)
         flt.frm_Conteudo.config(bg=tema.primario)
