@@ -4,6 +4,7 @@
 import tkinter as tk
 from typing import TYPE_CHECKING
 from Forms.F_NovoHospede import F_NovoHospede
+from Forms.F_HospedeObs import F_HospedeObs
 from Forms.F_EditarHospede import F_EditarHospede
 from Forms.F_NovoQuarto import F_NovoQuarto
 from Forms.F_QuartoReserva import F_QuartoReserva
@@ -46,14 +47,22 @@ class Form():
         self.frm_Hospedes = tk.Frame(self.frm_Conteudo)
         self.frm_BuscarHospede = tk.Frame(self.frm_Hospedes)
         self.frm_HospedesBotoes = tk.Frame(self.frm_Hospedes)
+        
+        # ComboBox
+
+        self.cbb_FiltroHosp = cc.ComboBox(self.frm_BuscarHospede)
+
+        # Label
 
         self.lb_BuscarHospede = tk.Label(self.frm_BuscarHospede)
+
+        # Button
 
         self.btn_BuscarHospede = tk.Button(self.frm_BuscarHospede)
         self.btn_EditarHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ExcluirHospede = tk.Button(self.frm_HospedesBotoes)
-        self.btn_AbrirHospede = tk.Button(self.frm_HospedesBotoes)
-        self.btn_NovoHospede = tk.Button(self.frm_BuscarHospede)
+        self.btn_ObsHospede = tk.Button(self.frm_HospedesBotoes)
+        self.btn_NovoHospede = tk.Button(self.frm_HospedesBotoes)
 
         self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
 
@@ -85,7 +94,7 @@ class Form():
         # buttons
 
         self.btn_QuartoSalvar = tk.Button(self.frm_QuartoBotoes)
-        self.btn_QuartoExcluir = tk.Button(self.frm_QuartoBotoes)
+        self.btn_RemoverQuarto = tk.Button(self.frm_QuartoBotoes)
         self.btn_QuartoNovo = tk.Button(self.frm_QuartoBotoes)
 
         # entrys
@@ -99,6 +108,7 @@ class Form():
 
         self.cbb_QuartoStatus = cc.ComboBox(self.frm_QuartoStatus)
         self.cbb_QuartoTipo = cc.ComboBox(self.frm_QuartoTipo)
+        self.cbb_FiltroQuarto = cc.ComboBox(self.frm_QuartoBusca)
 
         # frame list
 
@@ -110,12 +120,25 @@ class Form():
 
         self.frm_Reserva = tk.Frame(self.frm_Conteudo)
         self.frm_ReservaBotoes = tk.Frame(self.frm_Reserva)
+        self.frm_BuscarReserva = tk.Frame(self.frm_Reserva)
+
+        # Label
+
+        self.lb_BuscarReservar = tk.Label(self.frm_BuscarReserva)
 
         # button
 
         self.btn_ReservaNovo = tk.Button(self.frm_ReservaBotoes)
         self.btn_ReservaEditar = tk.Button(self.frm_ReservaBotoes)
-        self.btn_ReservaExcluir = tk.Button(self.frm_ReservaBotoes) 
+        self.btn_ReservaRenomear = tk.Button(self.frm_ReservaBotoes) 
+
+        #Entry
+
+        self.ent_BuscarReserva = tk.Entry(self.frm_BuscarReserva)
+
+        #ComboBox
+
+        self.cbb_FiltroReserva = cc.ComboBox(self.frm_BuscarReserva)
 
         # frame list
 
@@ -297,15 +320,6 @@ class Form():
         Style.Entry.Bord(self.ent_BuscarHospede)
 
         #
-        # btn_NovoHospede
-        #
-
-        self.btn_NovoHospede.config(text="Novo Hóspede")
-        self.btn_NovoHospede.config(command=lambda: self.FormAbrir_Click(F_NovoHospede))
-        self.btn_NovoHospede.pack(side="right", padx=10) 
-        Style.Button.Hide(self.btn_NovoHospede)
-
-        #
         # btn_BuscarHospede
         #
 
@@ -324,21 +338,31 @@ class Form():
         Style.Button.Hide(self.btn_EditarHospede)
 
         #
-        # btn_ExcluirHospede
+        # btn_RemoverHospede
         #
 
-        self.btn_ExcluirHospede.config(text="Excluir")
+        self.btn_ExcluirHospede.config(text="Remover")
         self.btn_ExcluirHospede.pack(side="left", padx=10)
         self.btn_ExcluirHospede.config(command=lambda: self.btn_ExcluirHospede_Click())
         Style.Button.Hide(self.btn_ExcluirHospede)
 
         #
-        # btn_AbrirHospede
+        # btn_NovoHospede
+        #
+
+        self.btn_NovoHospede.config(text="Novo")
+        self.btn_NovoHospede.config(command=lambda: self.FormAbrir_Click(F_NovoHospede))
+        self.btn_NovoHospede.pack(side="left", padx=10) 
+        Style.Button.Hide(self.btn_NovoHospede)
+
+        #
+        # btn_ObsHospede
         #
         
-        self.btn_AbrirHospede.config(text="Abrir")
-        self.btn_AbrirHospede.pack(side="left", padx=10)
-        Style.Button.Hide(self.btn_AbrirHospede)
+        self.btn_ObsHospede.config(text="Observações")
+        self.btn_ObsHospede.pack(side="left", padx=10)
+        self.btn_ObsHospede.config(command=lambda: self.FormAbrir_Click(F_HospedeObs))
+        Style.Button.Hide(self.btn_ObsHospede)
 
         #
         # flt_Hospede
@@ -348,6 +372,11 @@ class Form():
         self.flt_Hospede.config(width=600)
         self.flt_Hospede.pack(fill="both", expand=True)
         Style.FrameList.Zebrado(self.flt_Hospede)
+
+        # cbb_Filtro
+
+        self.cbb_FiltroHosp.pack(side="right", padx=12)
+
 
     #-----------------------------------------------------------------------------------------------------------------------\
 
@@ -527,6 +556,13 @@ class Form():
         self.cbb_QuartoTipo.ent_Box.config(state="readonly")
 
         #
+        # cbb_FiltroQuarto
+        #
+
+        self.cbb_FiltroQuarto.ent_Box.config(width=16)
+        self.cbb_FiltroQuarto.pack(side="left")
+
+        #
         # btn_QuartoSalvar
         #
 
@@ -536,13 +572,13 @@ class Form():
         Style.Button.Hide(self.btn_QuartoSalvar)
 
         #
-        # btn_QuartoExcluir
+        # btn_RemoverQuarto
         #
 
-        self.btn_QuartoExcluir.config(text="Excluir")
-        self.btn_QuartoExcluir.pack(side="left", padx=10)
-        self.btn_QuartoExcluir.config(command=self.Click_btn_QuartoExcluir)
-        Style.Button.Hide(self.btn_QuartoExcluir)
+        self.btn_RemoverQuarto.config(text="Remover")
+        self.btn_RemoverQuarto.pack(side="left", padx=10)
+        self.btn_RemoverQuarto.config(command=self.Click_btn_RemoverQuarto)
+        Style.Button.Hide(self.btn_RemoverQuarto)
 
         #
         # btn_QuartoNovo
@@ -577,6 +613,39 @@ class Form():
         Style.Frame.Bord(self.frm_ReservaBotoes)
 
         #
+        # frm_BuscarReserva
+        #
+
+        self.frm_BuscarReserva.config(height=60)
+        self.frm_BuscarReserva.pack_propagate(False)
+        self.frm_BuscarReserva.pack(side="top", fill="x")
+        Style.Frame.Bord(self.frm_BuscarReserva)
+
+        #
+        # lb_BuscaReserva
+        #
+
+        self.lb_BuscarReservar.config(text="Pesquisa", font=Config.tema.fonte)
+        self.lb_BuscarReservar.pack(side="left", padx=10)
+        Style.Label.Hide(self.lb_BuscarReservar)
+
+        #
+        # ent_BuscarReserva
+        #
+
+        self.ent_BuscarReserva.pack(side="left", padx=10)
+        self.ent_BuscarReserva.config(width=25)
+        self.ent_BuscarReserva_text = "Buscar:"
+        self.ent_BuscarReserva.insert(0, self.ent_BuscarReserva_text)
+        Style.Entry.Bord(self.ent_BuscarReserva)
+
+        #
+        # cbb_FiltroReserva
+        #
+
+        self.cbb_FiltroReserva.pack(side="right", padx=10)
+
+        #
         # btn_ReservaEditar
         #
 
@@ -585,14 +654,15 @@ class Form():
         Style.Button.Hide(self.btn_ReservaEditar)
 
         #
-        # btn_ReservaExcluir
+        # btn_ReservaRemover
         #
 
-        self.btn_ReservaExcluir.config(text="Excluir")
-        self.btn_ReservaExcluir.pack(side="left", padx=10)
-        self.btn_ReservaExcluir.config(command= lambda: self.Click_btn_ReservaExcluir())
-        Style.Button.Hide(self.btn_ReservaExcluir)
+        self.btn_ReservaRenomear.config(text="Remover")
+        self.btn_ReservaRenomear.pack(side="left", padx=10)
+        self.btn_ReservaRenomear.config(command= lambda: self.Click_btn_ReservaExcluir())
+        Style.Button.Hide(self.btn_ReservaRenomear)
 
+       
         #
         # btn_ReservaNovo
         #

@@ -305,7 +305,7 @@ class F_principal(Form):
 
                 item.pack_forget()
 
-    def Click_btn_QuartoExcluir(self):
+    def Click_btn_RemoverQuarto(self):
 
         if not self.itemAtualQuarto:
 
