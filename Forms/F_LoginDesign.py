@@ -50,7 +50,7 @@ class Form():
         #
 
         self.frm_Conteudo.pack(fill="both", expand=True)
-        Style.frame.Bord(self.frm_Conteudo)
+        Style.Frame.Bord(self.frm_Conteudo)
 
         #
         # frm_BarraSuperior
@@ -58,7 +58,7 @@ class Form():
 
         self.frm_BarraSuperior.pack(fill="x", side="top")
         self.frm_BarraSuperior.config(height=50)
-        Style.frame.Bord(self.frm_BarraSuperior)
+        Style.Frame.Bord(self.frm_BarraSuperior)
 
         #
         # frm_Conta
@@ -67,7 +67,7 @@ class Form():
         self.frm_Conta.pack(fill="x", side="top")
         self.frm_Conta.config(height=90)
         self.frm_Conta.pack_propagate(False)
-        Style.frame.Bord(self.frm_Conta)
+        Style.Frame.Bord(self.frm_Conta)
 
         #
         # frm_ContaSenha
@@ -76,7 +76,7 @@ class Form():
         self.frm_ContaSenha.pack(fill="x", side="top" )
         self.frm_ContaSenha.config(height=90)
         self.frm_ContaSenha.pack_propagate(False)
-        Style.frame.Bord(self.frm_ContaSenha)
+        Style.Frame.Bord(self.frm_ContaSenha)
 
         #
         # lb_BarraSuperior
@@ -84,7 +84,7 @@ class Form():
 
         self.lb_BarraSuperior.config(text="Bem-Vindo!", font=Config.tema.fonteTitulo)
         self.lb_BarraSuperior.pack(side="left", expand=True)
-        Style.label.Hide(self.lb_BarraSuperior)
+        Style.Label.Hide(self.lb_BarraSuperior)
        
 
         #
@@ -93,7 +93,7 @@ class Form():
 
         self.lb_Conta.config(text="Conta", font=Config.tema.fonte)
         self.lb_Conta.pack(anchor="w", padx=2, pady=10)
-        Style.label.Hide(self.lb_Conta)
+        Style.Label.Hide(self.lb_Conta)
 
         #
         # lb_ContaSenha
@@ -101,7 +101,7 @@ class Form():
 
         self.lb_ContaSenha.config(text="Senha", font=Config.tema.fonte)
         self.lb_ContaSenha.pack(anchor="w", padx=2, pady=10)
-        Style.label.Hide(self.lb_ContaSenha)
+        Style.Label.Hide(self.lb_ContaSenha)
 
         #
         # ent_Conta
@@ -110,7 +110,7 @@ class Form():
         self.ent_Conta.pack(anchor="w", padx=2)
         self.ent_Conta.insert(0,"bry")
         self.ent_Conta.config(width=30)
-        Style.entry.Bord(self.ent_Conta)
+        Style.Entry.Bord(self.ent_Conta)
 
         #
         # ent_ContaSenha
@@ -119,7 +119,7 @@ class Form():
         self.ent_ContaSenha.pack(side="left", padx=2, pady=(0,20))
         self.ent_ContaSenha.insert(0,"123")
         self.ent_ContaSenha.config(show="*")
-        Style.entry.Bord(self.ent_ContaSenha)
+        Style.Entry.Bord(self.ent_ContaSenha)
 
         #
         # btn_Login
@@ -128,7 +128,7 @@ class Form():
         self.btn_Login.config(text="Logar")
         self.btn_Login.pack(side="bottom", fill="x", expand=True)
         self.btn_Login.config(command= lambda: self.Click_btn_Login())
-        Style.button.Hide(self.btn_Login) 
+        Style.Button.Hide(self.btn_Login) 
 
         #
         # btn_MostraSenha
@@ -137,7 +137,7 @@ class Form():
         self.btn_MostraSenha.config(text="x_x")
         self.btn_MostraSenha.pack(side="left", padx=5, pady=(0,25))
         self.btn_MostraSenha.config(command= lambda: self.Click_btn_MostraSenha())
-        Style.button.Hide(self.btn_MostraSenha) 
+        Style.Button.Hide(self.btn_MostraSenha) 
 
         #
         # F_Login

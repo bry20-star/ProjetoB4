@@ -117,11 +117,13 @@ class F_NovoHospede(Form):
         hospId = Banco.AddDado(
 
             tabela=tb.Hospede.tabela, 
+
             dados={
             
                 tb.Hospede.t_Nome : self.ent_NameHospede.get().strip(),
                 tb.Hospede.t_TipoCobranca : self.cbb_TipoCobranca.itemAtual.value,
                 tb.Hospede.n_IdQuarto : int(self.cbb_Quarto.itemAtual.value)
+                
             }            
         )
 

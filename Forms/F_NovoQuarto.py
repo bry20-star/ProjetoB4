@@ -47,43 +47,53 @@ class F_NovoQuarto(Form):
 
 		# campo Nome Quarto
 
-		nud = self.ent_NomeQuarto
+		ent = self.ent_NomeQuarto
 
-		if nud.get() == self.ent_NomeQuarto_text:
+		if ent.get() == self.ent_NomeQuarto_text:
 
 			messagebox.showerror("Error","Nome do Quarto não foi definido")
-			if nud.winfo_exists(): nud.focus_set()
+			if ent.winfo_exists(): ent.focus_set()
 			return
 
-		if not nud.get().strip():
+		if not ent.get().strip():
 
 			messagebox.showerror("Error", f"Campo {self.lb_NomeQuarto.cget('text')} não pode está vazio")
-			if nud.winfo_exists(): nud.focus_set()
+			if ent.winfo_exists(): ent.focus_set()
 			return
 
-		for l in nud.get().replace(" ",""):
+		for l in ent.get().replace(" ",""):
 				
 			if l.isdigit(): continue
 
 			if l.isalpha(): continue
 
 			messagebox.showerror("Error", f"O nome do quarto não ter caracteres especiais")
-			if nud.winfo_exists(): nud.focus_set()
+			if ent.winfo_exists(): ent.focus_set()
 			return
 
-		if "  " in nud.get():
+		if "  " in ent.get():
 			   
 			messagebox.showerror("Error", "O nome do quarto não ter espaços duplos")
-			if nud.winfo_exists(): nud.focus_set()
+			if ent.winfo_exists(): ent.focus_set()
 			return
 
 		for item in self.fp.flt_Quarto.listLinhas:
 
-			if str(item.dados[tb.Quarto.t_Nome]).replace(" ","").lower() == nud.get().replace(" ","").lower():
+			if str(item.dados[tb.Quarto.t_Nome]).replace(" ","").lower() == ent.get().replace(" ","").lower():
 				
 				messagebox.showerror("Error", "Quarto já registrado com esse nome")
-				if nud.winfo_exists(): nud.focus_set()
+				if ent.winfo_exists(): ent.focus_set()
 				return
+
+		# campo capacidade
+
+		nud = self.nud_CapQuarto
+
+		if not nud.ent_box.get():
+				
+			messagebox.showerror("Error", f"Campo {self.lb_CapQuarto.cget('text')} não pode está vazio")
+			if nud.winfo_exists(): nud.focus_set()
+			return
 
 		# Adicionando dados
 

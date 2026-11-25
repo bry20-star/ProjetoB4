@@ -7,14 +7,14 @@ from Styles.Tema import Config
 
 #---------------------- FrameStyle ---------------------------------------------------------------------/
 
-class FrameStyle:
+class StyleFrame:
 
     @staticmethod
     def Bord(frm: tk.Frame):
         
         tema = Config.tema
 
-        sm.Registra(comp=frm, met=FrameStyle.Bord)
+        sm.Registra(comp=frm, met=StyleFrame.Bord)
 
         frm.config(
             
@@ -29,7 +29,7 @@ class FrameStyle:
 
         tema = Config.tema
 
-        sm.Registra(comp=frm, met=FrameStyle.Base)
+        sm.Registra(comp=frm, met=StyleFrame.Base)
 
         frm.config(
             

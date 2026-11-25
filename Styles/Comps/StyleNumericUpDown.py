@@ -1,22 +1,22 @@
 
 # importações
 
-from Comps.CustomComps import NumericUpDown
+from CustomComps.CustomComps import CustomComps as cc
 from Styles.StyleManager import StyleManager as sm
 from Styles.Tema import Config 
 
 #----------------------- NumericUpDownStyle -----------------------------------------------------------------------------------------------------------------------------/
 
-class NumericUpDownStyle():
+class StyleNumericUpDown():
 
     #---------------- Flat ------------------------------------------------------------------------------------------------------------------------/
 
     @staticmethod
-    def Flat(nud: NumericUpDown):
+    def Flat(nud: cc.NumericUpDown):
 
         tema = Config.tema
 
-        sm.Registra(comp=nud, met=NumericUpDownStyle.Flat)
+        sm.Registra(comp=nud, met=StyleNumericUpDown.Flat)
 
         nud.config(
             

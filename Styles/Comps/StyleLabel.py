@@ -7,7 +7,7 @@ from Styles.StyleManager import StyleManager as sm
 
 #-------------- LabelStyle ------------------------------------------------------------------------------------------------------------------------------/
 
-class LabelStyle():
+class StyleLabel():
 
     #--------------------- Hide -----------------------------------------------------------/
 
@@ -18,7 +18,7 @@ class LabelStyle():
 
         tema = Config.tema
 
-        sm.Registra(comp=lb, met=LabelStyle.Hide)
+        sm.Registra(comp=lb, met=StyleLabel.Hide)
 
         lb.config(
 

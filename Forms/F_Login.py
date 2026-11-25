@@ -6,7 +6,6 @@ from tkinter import messagebox
 from Forms.F_LoginDesign import Form
 from Banco.Banco import Banco
 from Modelos.Tabelas import Tabelas as tb
-from Styles.Style import Style
 
 #------------------------------------------------------- F_Login ---------------------------------------------------------------------------------------------------------------------------------------------------------/
 
