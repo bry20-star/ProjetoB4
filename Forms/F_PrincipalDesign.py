@@ -8,6 +8,7 @@ from Forms.F_HospedeObs import F_HospedeObs
 from Forms.F_EditarHospede import F_EditarHospede
 from Forms.F_NovoQuarto import F_NovoQuarto
 from Forms.F_QuartoReserva import F_QuartoReserva
+from Forms.F_EditarReserva import F_EditarReserva
 from Styles.Style import Style
 from Styles.Tema import Config
 from CustomComps.CustomComps import CustomComps as cc
@@ -37,40 +38,82 @@ class Form():
         self.lb_FrameTitulo = tk.Label(self.frm_BarraSuperio)
         self.lb_Menu = tk.Label(self.frm_BarraLateral)
 
-        # frm_Home
+        #------------------ Home ---------------------------------------------------/
+        
+        #Frame - Home
       
         self.frm_Home = tk.Frame(self.frm_Conteudo)
         self.lb_HomeTitulo = tk.Label(self.frm_Home)
 
-        # frm_Hospedes
+        #--------------------------------------------------------------------\
+
+        #------------------ Hospede ---------------------------------------------------/
+
+        # Frame - Hospede
 
         self.frm_Hospedes = tk.Frame(self.frm_Conteudo)
-        self.frm_BuscarHospede = tk.Frame(self.frm_Hospedes)
+        self.frm_HospedagemBuscar = tk.Frame(self.frm_Hospedes)
         self.frm_HospedesBotoes = tk.Frame(self.frm_Hospedes)
         
-        # ComboBox
+        # ComboBox - Hospede
 
-        self.cbb_FiltroHosp = cc.ComboBox(self.frm_BuscarHospede)
+        self.cbb_FiltroHosp = cc.ComboBox(self.frm_HospedagemBuscar)
 
-        # Label
+        # Label - Hospede
 
-        self.lb_BuscarHospede = tk.Label(self.frm_BuscarHospede)
+        self.lb_BuscarHospede = tk.Label(self.frm_HospedagemBuscar)
 
-        # Button
+        # Button - Hospede
 
-        self.btn_BuscarHospede = tk.Button(self.frm_BuscarHospede)
+        self.btn_BuscarHospede = tk.Button(self.frm_HospedagemBuscar)
         self.btn_EditarHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ExcluirHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ObsHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_NovoHospede = tk.Button(self.frm_HospedesBotoes)
 
-        self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
+        self.ent_BuscarHospede = tk.Entry(self.frm_HospedagemBuscar)
+
+        # Frame list - Hospede
 
         self.flt_Hospede = cc.FrameList(self.frm_Hospedes)
 
-        # frm_Quarto
+        #--------------------------------------------------------------------\
 
-        # frames
+        #------------------ Hospedagem ---------------------------------------------------/
+
+        # Frame - Hospedagem
+
+        self.frm_Hospedagem = tk.Frame(self.frm_Conteudo)
+        self.frm_HospedagemBotoes = tk.Frame(self.frm_Hospedagem)
+        self.frm_HospedagemBuscar = tk.Frame(self.frm_Hospedagem)
+
+        # Label - Hospedagem
+
+        self.lb_HospedagemBuscar = tk.Label(self.frm_HospedagemBuscar)
+        
+        # Entry - Hospedagem
+
+        self.ent_HospedagemBuscar = tk.Entry(self.frm_HospedagemBuscar)
+
+        # Button - Hospedagem
+
+        self.btn_HospedagemEditar = tk.Button(self.frm_HospedagemBotoes)
+        self.btn_HospedagemNovo = tk.Button(self.frm_HospedagemBotoes)
+        self.btn_HospedagemRemover = tk.Button(self.frm_HospedagemBotoes)
+
+        # ComboBox - Hospedagem
+
+        self.cbb_HospedagemFiltro = cc.ComboBox(self.frm_HospedagemBuscar)
+
+        # Frame list - Hospedagem
+
+        self.flt_Hospedagem = cc.FrameList(self.frm_Hospedagem)
+
+        #--------------------------------------------------------------------\
+
+        #------------------ Quarto ---------------------------------------------------/
+
+        # Frames - Quarto
 
         self.frm_Quarto = tk.Frame(self.frm_Conteudo)
         self.frm_QuartoLateral = tk.Frame(self.frm_Quarto)
@@ -82,7 +125,7 @@ class Form():
         self.frm_QuartoTipo = tk.Frame(self.frm_QuartoLateral)
         self.frm_QuartoCap = tk.Frame(self.frm_QuartoLateral)
 
-        # labels
+        # Labels - Quarto
 
         self.lb_QuartoBusca = tk.Label(self.frm_QuartoBusca)
         self.lb_QuartoId = tk.Label(self.frm_QuartoId)
@@ -91,73 +134,90 @@ class Form():
         self.lb_QuartoTipo = tk.Label(self.frm_QuartoTipo)
         self.lb_QuartoCap = tk.Label(self.frm_QuartoCap)
 
-        # buttons
+        # Buttons - Quarto
 
         self.btn_QuartoSalvar = tk.Button(self.frm_QuartoBotoes)
         self.btn_RemoverQuarto = tk.Button(self.frm_QuartoBotoes)
         self.btn_QuartoNovo = tk.Button(self.frm_QuartoBotoes)
 
-        # entrys
+        # Entry - Quarto
 
         self.ent_QuartoBusca = tk.Entry(self.frm_QuartoBusca)
         self.ent_QuartoId = tk.Entry(self.frm_QuartoId)
         self.ent_QuartoNome = tk.Entry(self.frm_QuartoNome)
         self.nud_QuartoCap = cc.NumericUpDown(self.frm_QuartoCap)
         
-        # comboxs
+        # Combox - Quarto
 
         self.cbb_QuartoStatus = cc.ComboBox(self.frm_QuartoStatus)
         self.cbb_QuartoTipo = cc.ComboBox(self.frm_QuartoTipo)
         self.cbb_FiltroQuarto = cc.ComboBox(self.frm_QuartoBusca)
 
-        # frame list
+        # Frame list
 
         self.flt_Quarto = cc.FrameList(self.frm_Quarto)
 
-    #------------------ frame reservas ---------------------------------------------------/
+        #--------------------------------------------------------------------\
 
-        # frame
+        #------------------ Reservas ---------------------------------------------------/
+
+        # Frame - Reservas
 
         self.frm_Reserva = tk.Frame(self.frm_Conteudo)
         self.frm_ReservaBotoes = tk.Frame(self.frm_Reserva)
         self.frm_BuscarReserva = tk.Frame(self.frm_Reserva)
 
-        # Label
+        # Label - Quarto
 
         self.lb_BuscarReservar = tk.Label(self.frm_BuscarReserva)
 
-        # button
+        # Button - Quarto
 
         self.btn_ReservaNovo = tk.Button(self.frm_ReservaBotoes)
         self.btn_ReservaEditar = tk.Button(self.frm_ReservaBotoes)
         self.btn_ReservaRenomear = tk.Button(self.frm_ReservaBotoes) 
 
-        #Entry
+        # Entry - Quarto
 
         self.ent_BuscarReserva = tk.Entry(self.frm_BuscarReserva)
 
-        #ComboBox
+        # ComboBox - Quarto
 
         self.cbb_FiltroReserva = cc.ComboBox(self.frm_BuscarReserva)
 
-        # frame list
+        # Frame list - Quarto
 
         self.flt_Reserva = cc.FrameList(self.frm_Reserva)
 
-    #--------------------------------------------------------------------\
+        #--------------------------------------------------------------------\
 
-        # frm_Funcionarios
+        #------------------ Funcionários ---------------------------------------------------/
+
+        # Frame - Funcionarios
 
         self.frm_Funcionarios = tk.Frame(self.frm_Conteudo)
 
-        # frm_Relatorio
+        #--------------------------------------------------------------------\
+
+
+        #------------------ Relatório ---------------------------------------------------/
+
+        # Frame - Relatório
 
         self.frm_Relatorio = tk.Frame(self.frm_Conteudo)
 
-        # frm_Config
+        #--------------------------------------------------------------------\
+
+
+        #------------------ Configurações ---------------------------------------------------/
+
+        # Frame - Config
 
         self.frm_Config = tk.Frame(self.frm_Conteudo)
         
+        #--------------------------------------------------------------------\
+
+
     #-------------------- Componentes Janela --------------------------------------------------------------------------------------------------------------------------------/
 
         #
@@ -168,7 +228,8 @@ class Form():
             
             self.frm_Conteudo, 
             self.frm_Home, 
-            self.frm_Hospedes, 
+            self.frm_Hospedes,
+            self.frm_Hospedagem,
             self.frm_Quarto, 
             self.frm_Reserva,
             self.frm_Funcionarios, 
@@ -255,6 +316,7 @@ class Form():
             
             ("Home", self.frm_Home),
             ("Hóspedes", self.frm_Hospedes),
+            ("Hospedagem", self.frm_Hospedagem),
             ("Quartos", self.frm_Quarto),
             ("Reservas", self.frm_Reserva),
             ("Funcionários", self.frm_Funcionarios),
@@ -289,10 +351,10 @@ class Form():
         # frm_HospedesPesquisa
         #
 
-        self.frm_BuscarHospede.config(height=60)
-        self.frm_BuscarHospede.pack_propagate(False)
-        self.frm_BuscarHospede.pack(side="top", fill="x")
-        Style.Frame.Bord(self.frm_BuscarHospede)
+        self.frm_HospedagemBuscar.config(height=60)
+        self.frm_HospedagemBuscar.pack_propagate(False)
+        self.frm_HospedagemBuscar.pack(side="top", fill="x")
+        Style.Frame.Bord(self.frm_HospedagemBuscar)
 
         #
         # frm_HospedesBotoes
@@ -377,6 +439,89 @@ class Form():
 
         self.cbb_FiltroHosp.pack(side="right", padx=12)
 
+    #-----------------------------------------------------------------------------------------------------------------------\
+
+    #-------------------- Componentes Hospedagem ----------------------------------------------------------------------------------------------------------/
+
+        #
+        # frm_Hospedagem
+        #
+
+        self.frm_Hospedagem
+        Style.Frame.Base(self.frm_Hospedagem)
+
+        #
+        # frm_HospedagemBotoes
+        #
+
+        self.frm_HospedagemBotoes.config(height=60)
+        self.frm_HospedagemBotoes.pack_propagate(False)
+        self.frm_HospedagemBotoes.pack(side="bottom", fill="x")
+        Style.Frame.Bord(self.frm_HospedagemBotoes)
+
+        #
+        # frm_HospedagemBuscar
+        #
+
+        self.frm_HospedagemBuscar.config(height=60)
+        self.frm_HospedagemBuscar.pack_propagate(False)
+        self.frm_HospedagemBuscar.pack(side="top", fill="x")
+        Style.Frame.Bord(self.frm_HospedagemBuscar)
+
+        #
+        # lb_HospedagemBuscar
+        #
+
+        self.lb_HospedagemBuscar.config(text="Pesquisar", font=Config.tema.fonte)
+        self.lb_HospedagemBuscar.pack(side="left", padx=10)
+        Style.Label.Hide(self.lb_HospedagemBuscar)
+
+        # 
+        # ent_HospedagemBuscar
+        #
+
+        self.ent_HospedagemBuscar.pack(side="left", padx=10)
+        self.ent_HospedagemBuscar.insert(0, "Buscar:")
+        Style.Entry.Bord(self.ent_HospedagemBuscar)
+
+        #
+        # btn_HospedagemEditar
+        #
+
+        self.btn_HospedagemEditar.config(text="Editar")
+        self.btn_HospedagemEditar.pack(side="left", padx=10)
+        #self.btn_HospedagemEditar.config(command=lambda: self.btn_HospedagemEditar_Click())
+        Style.Button.Hide(self.btn_HospedagemEditar)
+
+        #
+        # btn_HospedagemNovo
+        #
+
+        self.btn_HospedagemNovo.config(text="Novo")
+        #self.btn_HospedagemNovo.config(command=lambda: self.FormAbrir_Click())
+        self.btn_HospedagemNovo.pack(side="left", padx=10) 
+        Style.Button.Hide(self.btn_HospedagemNovo)
+
+        #
+        # btn_HospedagemRemover
+        #
+
+        self.btn_HospedagemRemover.config(text="Remover")
+        self.btn_HospedagemRemover.pack(side="left", padx=10)
+        #self.btn_ExcluirHospede.config(command=lambda: self.btn_ExcluirHospede_Click())
+        Style.Button.Hide(self.btn_HospedagemRemover)
+
+        # cbb_HospedagemFiltro
+
+        self.cbb_HospedagemFiltro.pack(side="right", padx=12)
+
+
+        # flt_Hospedagem
+
+        self.flt_Hospedagem.config(bg=Config.tema.segundario)
+        self.flt_Hospedagem.config(width=600)
+        self.flt_Hospedagem.pack(fill="both", expand=True)
+        Style.FrameList.Zebrado(self.flt_Hospedagem)
 
     #-----------------------------------------------------------------------------------------------------------------------\
 
@@ -650,6 +795,7 @@ class Form():
         #
 
         self.btn_ReservaEditar.config(text="Editar")
+        self.btn_ReservaEditar.config(command=lambda: self.FormAbrir_Click(F_EditarReserva))
         self.btn_ReservaEditar.pack(side="left", padx=10)
         Style.Button.Hide(self.btn_ReservaEditar)
 
