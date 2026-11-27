@@ -52,26 +52,30 @@ class Form():
         # Frame - Hospede
 
         self.frm_Hospedes = tk.Frame(self.frm_Conteudo)
-        self.frm_HospedagemBuscar = tk.Frame(self.frm_Hospedes)
+        self.frm_BuscarHospede = tk.Frame(self.frm_Hospedes)
         self.frm_HospedesBotoes = tk.Frame(self.frm_Hospedes)
         
         # ComboBox - Hospede
 
-        self.cbb_FiltroHosp = cc.ComboBox(self.frm_HospedagemBuscar)
+        self.cbb_FiltroHosp = cc.ComboBox(self.frm_BuscarHospede)
 
         # Label - Hospede
 
-        self.lb_BuscarHospede = tk.Label(self.frm_HospedagemBuscar)
+        self.lb_BuscarHospede = tk.Label(self.frm_BuscarHospede)
+
+        # Entry - Hospede
+
+        self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
 
         # Button - Hospede
 
-        self.btn_BuscarHospede = tk.Button(self.frm_HospedagemBuscar)
+        self.btn_BuscarHospede = tk.Button(self.frm_BuscarHospede)
         self.btn_EditarHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ExcluirHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_ObsHospede = tk.Button(self.frm_HospedesBotoes)
         self.btn_NovoHospede = tk.Button(self.frm_HospedesBotoes)
 
-        self.ent_BuscarHospede = tk.Entry(self.frm_HospedagemBuscar)
+        self.ent_BuscarHospede = tk.Entry(self.frm_BuscarHospede)
 
         # Frame list - Hospede
 
@@ -351,10 +355,10 @@ class Form():
         # frm_HospedesPesquisa
         #
 
-        self.frm_HospedagemBuscar.config(height=60)
-        self.frm_HospedagemBuscar.pack_propagate(False)
-        self.frm_HospedagemBuscar.pack(side="top", fill="x")
-        Style.Frame.Bord(self.frm_HospedagemBuscar)
+        self.frm_HospedesPesquisa.config(height=60)
+        self.frm_HospedesPesquisa.pack_propagate(False)
+        self.frm_HospedesPesquisa.pack(side="top", fill="x")
+        Style.Frame.Bord(self.frm_HospedesPesquisa)
 
         #
         # frm_HospedesBotoes
@@ -369,17 +373,17 @@ class Form():
         # lb_HospedesPesquisa
         #
 
-        self.lb_BuscarHospede.config(text="Pesquisa", font=Config.tema.fonte)
-        self.lb_BuscarHospede.pack(side="left", padx=10)
-        Style.Label.Hide(self.lb_BuscarHospede)
+        self.frm_HospedesPesquisa.config(text="Pesquisa", font=Config.tema.fonte)
+        self.frm_HospedesPesquisa.pack(side="left", padx=10)
+        Style.Label.Hide(self.frm_HospedesPesquisa)
 
         # 
         # ent_BuscarHospede
         #
 
-        self.ent_BuscarHospede.pack(side="left", padx=10)
-        self.ent_BuscarHospede.insert(0, "Buscar:")
-        Style.Entry.Bord(self.ent_BuscarHospede)
+        self.frm_BuscarHospede.pack(side="left", padx=10)
+        self.frm_BuscarHospede.insert(0, "Buscar:")
+        Style.Entry.Bord(self.frm_BuscarHospede)
 
         #
         # btn_BuscarHospede
