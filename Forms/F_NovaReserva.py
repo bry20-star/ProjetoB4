@@ -3,7 +3,7 @@
 
 from typing import List
 from typing import TYPE_CHECKING    
-from Forms.F_QuartoReservaDesign import Form
+from Forms.F_NovaReservaDesign import Form
 from Banco.Banco import Banco
 from Modelos.Tabelas import Tabelas as tb
 from tkinter import messagebox
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     
     from Forms.F_Principal import F_principal
 
-class F_QuartoReserva(Form):
+class F_NovaReservaDesign(Form):
 
     def __init__(self, master, fp: "F_principal"):
        

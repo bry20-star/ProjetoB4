@@ -7,7 +7,7 @@ from Forms.F_NovoHospede import F_NovoHospede
 from Forms.F_HospedeObs import F_HospedeObs
 from Forms.F_EditarHospede import F_EditarHospede
 from Forms.F_NovoQuarto import F_NovoQuarto
-from Forms.F_QuartoReserva import F_QuartoReserva
+from Forms.F_NovaReserva import F_NovaReservaDesign
 from Forms.F_EditarReserva import F_EditarReserva
 from Styles.Style import Style
 from Styles.Tema import Config
@@ -352,13 +352,13 @@ class Form():
     #--------------------------------------------- Componentes Hospedes --------------------------------------------------------------------------------/
 
         #
-        # frm_HospedesPesquisa
+        # frm_BuscarHospede
         #
 
-        self.frm_HospedesPesquisa.config(height=60)
-        self.frm_HospedesPesquisa.pack_propagate(False)
-        self.frm_HospedesPesquisa.pack(side="top", fill="x")
-        Style.Frame.Bord(self.frm_HospedesPesquisa)
+        self.frm_BuscarHospede.config(height=60)
+        self.frm_BuscarHospede.pack_propagate(False)
+        self.frm_BuscarHospede.pack(side="top", fill="x")
+        Style.Frame.Bord(self.frm_BuscarHospede)
 
         #
         # frm_HospedesBotoes
@@ -370,20 +370,20 @@ class Form():
         Style.Frame.Bord(self.frm_HospedesBotoes)
 
         #
-        # lb_HospedesPesquisa
+        # lb_BuscarHospede
         #
 
-        self.frm_HospedesPesquisa.config(text="Pesquisa", font=Config.tema.fonte)
-        self.frm_HospedesPesquisa.pack(side="left", padx=10)
-        Style.Label.Hide(self.frm_HospedesPesquisa)
+        self.lb_BuscarHospede.config(text="Pesquisa", font=Config.tema.fonte)
+        self.lb_BuscarHospede.pack(side="left", padx=10)
+        Style.Label.Hide(self.lb_BuscarHospede)
 
         # 
         # ent_BuscarHospede
         #
 
-        self.frm_BuscarHospede.pack(side="left", padx=10)
-        self.frm_BuscarHospede.insert(0, "Buscar:")
-        Style.Entry.Bord(self.frm_BuscarHospede)
+        self.ent_BuscarHospede.pack(side="left", padx=10)
+        self.ent_BuscarHospede.insert(0, "Buscar:")
+        Style.Entry.Bord(self.ent_BuscarHospede)
 
         #
         # btn_BuscarHospede
