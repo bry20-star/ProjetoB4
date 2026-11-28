@@ -16,37 +16,37 @@ class Form():
         # Frames
 
         self.frm_Conteudo = tk.Frame(self.F_Reserva)
-        self.frm_NomeQuarto = tk.Frame(self.frm_Conteudo)
-        self.frm_Status = tk.Frame(self.frm_Conteudo)
-        self.frm_Data = tk.Frame(self.frm_Conteudo)
-        self.frm_HospResponsavel = tk.Frame(self.frm_Conteudo)
-        self.frm_Hosps = tk.Frame(self.frm_Conteudo)
-        self.frm_CardHosp = tk.Frame(self.frm_Hosps)
-        self.frm_HospsButton = tk.Frame(self.frm_CardHosp)
+        self.frm_ReservaNomeQuarto = tk.Frame(self.frm_Conteudo)
+        self.frm_StatusReserva = tk.Frame(self.frm_Conteudo)
+        self.frm_DataReserva = tk.Frame(self.frm_Conteudo)
+        self.frm_ResposavelReserva = tk.Frame(self.frm_Conteudo)
+        self.frm_HospsReserva = tk.Frame(self.frm_Conteudo)
+        self.frm_CardHospReserva = tk.Frame(self.frm_HospsReserva)
+        self.frm_ReservaButton = tk.Frame(self.frm_CardHospReserva)
 
         # Label
 
-        self.lb_NomeQuarto = tk.Label(self.frm_NomeQuarto)
-        self.lb_Status = tk.Label(self.frm_Status)
-        self.lb_Data = tk.Label(self.frm_Data)
-        self.lb_HospResponsavel = tk.Label(self.frm_HospResponsavel)
-        self.lb_Hosps = tk.Label(self.frm_Hosps)
+        self.lb_ReservaNomeQuarto = tk.Label(self.frm_ReservaNomeQuarto)
+        self.lb_StatusReserva = tk.Label(self.frm_StatusReserva)
+        self.lb_DataReserva = tk.Label(self.frm_DataReserva)
+        self.lb_ResponsavelReserva = tk.Label(self.frm_ResposavelReserva)
+        self.lb_HospsReserva = tk.Label(self.frm_HospsReserva)
 
         # Entry
 
-        self.tbm_Data = cc.TextBoxMask(self.frm_Data)
+        self.tbm_DataReserva = cc.TextBoxMask(self.frm_DataReserva)
         
         # ComboBox
 
-        self.cbb_NomeQuarto = cc.ComboBox(self.frm_NomeQuarto)
-        self.cbb_Status = cc.ComboBox(self.frm_Status)
-        self.cbb_HospResponsavel = cc.ComboBox(self.frm_HospResponsavel)
-        self.cbb_Hosp = cc.ComboBox(self.frm_CardHosp)
+        self.cbb_ReservaNomeQuarto = cc.ComboBox(self.frm_ReservaNomeQuarto)
+        self.cbb_StatusReserva = cc.ComboBox(self.frm_StatusReserva)
+        self.cbb_ResponsavelReserva = cc.ComboBox(self.frm_ResposavelReserva)
+        self.cbb_HospReserva = cc.ComboBox(self.frm_CardHospReserva)
 
         # Button
 
         self.btn_Confirmar = tk.Button(self.frm_Conteudo)
-        self.btn_AddHosp = tk.Button(self.frm_HospsButton)
+        self.btn_AddHosp = tk.Button(self.frm_ReservaButton)
        
     #------------------------- Componente Janela --------------------------------------------------/
         
@@ -61,10 +61,10 @@ class Form():
         # frm_HospsButton
         #
 
-        self.frm_HospsButton.config(width=30)
-        self.frm_HospsButton.pack(side="right", fill="y", padx=(10,0))
-        self.frm_HospsButton.pack_propagate(False)
-        Style.Frame.Base(self.frm_HospsButton)
+        self.frm_ReservaButton.config(width=30)
+        self.frm_ReservaButton.pack(side="right", fill="y", padx=(10,0))
+        self.frm_ReservaButton.pack_propagate(False)
+        Style.Frame.Base(self.frm_ReservaButton)
 
         #
         # Componentes Multiplos - Frames
@@ -72,17 +72,17 @@ class Form():
         
         list_frm = (
             
-            self.frm_NomeQuarto, 
-            self.frm_Status,
-            self.frm_Data, 
-            self.frm_HospResponsavel,
-            self.frm_Hosps
+            self.frm_ReservaNomeQuarto, 
+            self.frm_StatusReserva,
+            self.frm_DataReserva, 
+            self.frm_ResposavelReserva,
+            self.frm_HospsReserva
         )
 
         for frm in list_frm:
 
             frm.config(height=80)
-            if frm != self.frm_Hosps:  frm.pack_propagate(False)
+            if frm != self.frm_HospsReserva:  frm.pack_propagate(False)
             frm.pack(side="top", fill="x")
             Style.Frame.Bord(frm)
 
@@ -92,11 +92,11 @@ class Form():
         
         list_lb = (
             
-            ("Quarto", self.lb_NomeQuarto),
-            ("Data", self.lb_Data),
-            ("Status", self.lb_Status),
-            ("Hóspede Responsavel", self.lb_HospResponsavel),
-            ("Hóspedes", self.lb_Hosps)
+            ("Quarto", self.lb_ReservaNomeQuarto),
+            ("Data", self.lb_DataReserva),
+            ("Status", self.lb_StatusReserva),
+            ("Hóspede Responsavel", self.lb_ResponsavelReserva),
+            ("Hóspedes", self.lb_HospsReserva)
 
         )
 
@@ -112,11 +112,11 @@ class Form():
 
         list_comps = (
             
-            ("", self.cbb_NomeQuarto), 
-            ("", self.cbb_Status),
-            ("", self.tbm_Data),
-            ("", self.cbb_HospResponsavel),
-            ("", self.frm_CardHosp),
+            ("", self.cbb_ReservaNomeQuarto), 
+            ("", self.cbb_StatusReserva),
+            ("", self.tbm_DataReserva),
+            ("", self.cbb_ResponsavelReserva),
+            ("", self.frm_CardHospReserva),
         )
 
         for txt, comp in list_comps:
@@ -151,7 +151,7 @@ class Form():
         # cbb_Hosp
         #
 
-        self.cbb_Hosp.pack(side="left")
+        self.cbb_HospReserva.pack(side="left")
 
         #
         # btn_AddHosp
